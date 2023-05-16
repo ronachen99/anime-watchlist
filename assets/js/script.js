@@ -1,11 +1,15 @@
+//add to list buttons
+
+
 //search box elements
 var searchBox = document.querySelector("#searchBox");
 var searchButton = document.querySelector("#searchButton");
 //Wherever we want the anime tiles to appear
 var searchResultsContainer = document.querySelector("#searchResults");
+
 var searchCriteria = "";
-//get a list of anime from jikan
 var jikanUrl;
+//
 
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
@@ -15,6 +19,9 @@ searchButton.addEventListener("click", function (event) {
         jikanUrl = "https://api.jikan.moe/v4/anime?q=" + searchCriteria + "&sfw";
         console.log("searching " + jikanUrl);
         getSearchResults(searchCriteria);
+    }
+    else{
+
     }
 })
 
@@ -30,6 +37,9 @@ function getSearchResults(searchCriteria) {
                 displaySearchResults(data);
             });
     }
+    else{
+        //display error
+    }
 }
 
 function clearSearchResults(){
@@ -37,7 +47,7 @@ function clearSearchResults(){
         searchResultsContainer.removeChild(searchResultsContainer.firstChild);
     }
 }
-
+//need to get the list
 function displaySearchResults(data) {
     //clear existing search results
     clearSearchResults();
@@ -45,6 +55,12 @@ function displaySearchResults(data) {
         //display the anime pictures
         console.log(data.data[x]);
         var animeTile = document.createElement("img");
+        //values for anime tile size
+        animeTile.setAttribute("style","height:350px; width:250px");
+        //Add + buttons to each anime tile
+
+        //if anime isn't already added to the list, add it
+
         //tile classes if needed
         animeTile.classList = "";
         //get the anime picture(s)
@@ -53,11 +69,9 @@ function displaySearchResults(data) {
         animeTile.setAttribute("src", tileLink, "alt", "testing");
         searchResultsContainer.appendChild(animeTile);
         console.log(animeTile.attributes);
+
     }
 }
-
-
-//search criteria 
 
 
 
