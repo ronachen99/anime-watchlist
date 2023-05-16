@@ -51,28 +51,150 @@
             </div>
             <div id="home" class="hero-body">
                 <div class="container has-text-centered">
-                    <p class="title">
+                    <h1 class="title is-1">
                         Anime Watchlist
-                    </p>
-                    <p class="subtitle">
+                    </h1>
+                    <h2 class="subtitle">
                         start <strong>exploring</strong> your list
-                    </p>
+                    </h2>
                 </div>
             </div>
         </section>
     </header>
 
-
-    <main class="list-container">
+    <section class="list-container">
         <div id="currently-watching">
+            <h3 class="title is-3">Currently Watching</h3>
+            <!-- Modal -->
+            <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#staticBackdrop">+</button>
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">Search Anime</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        SEARCH FORM
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- List -->
+            <div class="columns">
+                <div class="column">
+                    <div class="card">
+                        <figure class="image is-4by3">
+                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                        </figure>
+                        <div class="card-content">
+                            <h3>Example Title</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <figure class="image is-4by3">
+                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                        </figure>
+                        <div class="card-content">
+                            <h3>Example Title</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <figure class="image is-4by3">
+                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                        </figure>
+                        <div class="card-content">
+                            <h3>Example Title</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <figure class="image is-4by3">
+                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                        </figure>
+                        <div class="card-content">
+                            <h3>Example Title</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <figure class="image is-4by3">
+                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                        </figure>
+                        <div class="card-content">
+                            <h3>Example Title</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <hr>
         <div id="plan-to-watch">
+            <h3 class="title is-3">Plan to Watch</h3>
+            <!-- Modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+</button>
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">Search Anime</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        SEARCH FORM
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- List -->
         </div>
+        <hr>
         <div id="completed">
+            <h3 class="title is-3">Completed</h3>
+            <!-- Modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+</button>
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">Search Anime</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        SEARCH FORM
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- List -->
         </div>
-    </main>
+    </section>
 
     <section id="quotes" class="quotes-container">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" aria-label="Text input with dropdown button">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Anime or Character</button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item">Anime</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" >Anime Character</a></li>
+            </ul>
+          </div>
     </section>
 
     <script src="./assets/js/script.js"></script>
