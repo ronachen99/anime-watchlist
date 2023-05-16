@@ -1,33 +1,41 @@
+/* Add font from Google Fonts */
 * {
     font-family: 'Raleway', sans-serif;
 }
 
+/* Change positioning of the header */
 header {
     position: relative;
 }
 
+/* Add an image that covers full-height on landing page */
 .hero {
     background-image: url('../images/Hero.jpg');
     background-size: cover;
 }
 
+/* Remove underline from the navigation bar menu */
 .navbar-item {
     text-decoration-line: none;
 }
 
+/* Make dropdown menu transparent */
 .transparent {
     background-color: transparent;
     box-shadow: none;
 }
 
+/* Add margin around the list and quotes sections */
 section {
     margin: 2%;
 }
 
+/* Make search input for the search anime form center */
 #searchFunction {
     text-align: center;
 }
 
+/* Make anime results display in the center with spacing between each column */
 #searchResults {
     display: flex;
     flex-wrap: wrap;
@@ -35,25 +43,26 @@ section {
     margin: 2%;
 }
 
+/* Make quotes align in the center */
 li {
     margin: 2%;
     text-align: center;
 }
 
+/* Add styling and layout for the footer */
 footer {
     text-align: center;
     background-color:#25244e;
     font-size: 24px;
     color: #fe7733;
 }
+
+/* Add margin around the footer message */
 h5 {
     padding: 1%;
 }
 
+/* Make a line through the word "never" */
 .bold {
    text-decoration: line-through;
-}
-
-#modal-button {
-    
 }
