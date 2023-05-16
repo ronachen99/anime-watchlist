@@ -2,11 +2,58 @@
     font-family: 'Raleway', sans-serif;
 }
 
+header {
+    position: relative;
+}
+
 .hero {
-    background-image: url(/assets/images/Hero.jpg);
+    background-image: url('../images/Hero.jpg');
     background-size: cover;
 }
 
 .navbar-item {
     text-decoration-line: none;
+}
+
+.transparent {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+section {
+    margin: 2%;
+}
+
+#searchFunction {
+    text-align: center;
+}
+
+#searchResults {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 2%;
+}
+
+li {
+    margin: 2%;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    background-color:#25244e;
+    font-size: 24px;
+    color: #fe7733;
+}
+h5 {
+    padding: 1%;
+}
+
+.bold {
+   text-decoration: line-through;
+}
+
+#modal-button {
+    
 }
