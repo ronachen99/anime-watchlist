@@ -47,6 +47,8 @@ section {
 li {
     margin: 2%;
     text-align: center;
+    list-style-type:decimal-leading-zero;
+    line-height: 2.0;
 }
 
 /* Add styling and layout for the footer */

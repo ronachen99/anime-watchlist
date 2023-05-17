@@ -99,4 +99,72 @@ function displaySearchResults(data) {
 
 
 
-
+//------------------------------------------------------------------------------------------------------------//
+// Quote Search Section
+//------------------------------------------------------------------------------------------------------------//
+var quotesFormEl = document.querySelector('#quotes-form');
+var keywordEl = document.querySelector('#keyword');
+var optionEl = document.querySelector('#option');
+var quotesResult = document.querySelector('#quotes-result');
+//------------------------------------------------------------------------------------------------------------//
+// Quotes Form Handler: take in the input value and the selected option
+//------------------------------------------------------------------------------------------------------------//
+function quotesFormHandler(event) {
+    event.preventDefault();
+    var keyword = keywordEl.value.trim();
+    var option = optionEl.value.trim();
+    runData(keyword, option);
+    keywordEl.value = '';
+}
+//------------------------------------------------------------------------------------------------------------//
+// Run Data: run fetch data from Anime Chan API 
+//------------------------------------------------------------------------------------------------------------//
+function runData(keyword, option) {
+    quotesResult.innerHTML = '';
+    if (option == 1) {
+        fetchByTitle(keyword);
+    } else
+        fetchByName(keyword);
+}
+//------------------------------------------------------------------------------------------------------------//
+// Fetch by Title: fetch data from AnimeChan through anime title
+//------------------------------------------------------------------------------------------------------------//
+function fetchByTitle(keyword) {
+    var animechanURL = 'https://animechan.vercel.app/api/quotes/anime?title=' + keyword
+    fetch(animechanURL)
+        .then(function (response) {
+            if (!response.ok) {
+                return '(._.) sorry...nothing was found' //Need to make it into a modal etc.
+            }
+            response.json().then(function (data) {
+                createQuotes(data);
+            })
+        })
+}
+//------------------------------------------------------------------------------------------------------------//
+// Fetch by Name: fetch data from AnimeChan through anime character
+//------------------------------------------------------------------------------------------------------------//
+function fetchByName(keyword) {
+    var animechanURL = 'https://animechan.vercel.app/api/quotes/character?name=' + keyword
+    fetch(animechanURL)
+        .then(function (response) {
+            if (!response.ok) {
+                return '(._.) sorry...nothing was found' //Need to make it into a modal etc.
+            }
+            response.json().then(function (data) {
+                createQuotes(data);
+            })
+        })
+}
+//------------------------------------------------------------------------------------------------------------//
+// Create Quotes
+//------------------------------------------------------------------------------------------------------------//
+function createQuotes(data) {
+    for (x = 0; x < data.length; x++) {
+        quotesResult.innerHTML += `<li><p> ${data[x].character} </p><q> ${data[x].quote} </q></li>`
+    }
+}
+//------------------------------------------------------------------------------------------------------------//
+// Event Listener: that calls for quotes form handler on click
+//------------------------------------------------------------------------------------------------------------//
+quotesFormEl.addEventListener('submit', quotesFormHandler);
