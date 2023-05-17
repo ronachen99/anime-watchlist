@@ -35,14 +35,6 @@ section {
     text-align: center;
 }
 
-/* Make anime results display in the center with spacing between each column */
-#searchResults {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 2%;
-}
-
 /* Make quotes align in the center */
 li {
     margin: 2%;
@@ -67,4 +59,47 @@ h5 {
 /* Make a line through the word "never" */
 .bold {
    text-decoration: line-through;
+}
+
+/* Make anime results display in the center with spacing between each column */
+#searchResults {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 2%;
+}
+
+/* Add an image background for the anime search modal */
+.modal-body {
+    background-image: url(../images/Search.jpg);
+    background-size: cover;
+}
+
+/* Set layout for the anime search results in the modal */
+#anime-tiles {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Set hover effect for the anime options in the anime search modal */
+.img-container {
+    opacity:70%;
+}
+.img-container:hover {
+    opacity:100%;
+}
+
+/* Set styling and positioning for the buttons in the anime search modal */
+.add-button {
+    border: solid 3px black;
+    background-color: white;
+    opacity: 60%;
+    border-radius: 20px;
+    font-size:30px;
+    position: relative;
+    top: 45px;
+    left: 75%;
+    width: 15%;
 }
