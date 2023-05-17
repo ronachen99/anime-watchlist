@@ -6,8 +6,9 @@ var currentlyWatching = [];
 var planToWatch = [];
 var completed = [];
 //functions
-//save list items to local storage
+//clear local storage for testing purposes
 localStorage.clear();
+//save list items to local storage
 function setLocalStorageLists() {
     localStorage.setItem("currentlyWatching", currentlyWatching);
     localStorage.setItem("planToWatch", planToWatch);
@@ -18,6 +19,19 @@ function getListsFromLocalStorage() {
     planToWatch = localStorage.getItem("planToWatch");
     completed = localStorage.getItem("completed");
 }
+//------------------------------------------------------------------------------------------------------------//
+// Display list items from local storage
+//------------------------------------------------------------------------------------------------------------//
+//list sections
+var currentlyWatchingListDisplay = document.querySelector("#current-list");
+var planToWatchListDisplay = document.querySelector("#plan-list");
+var currentlyWatchingListDisplay = document.querySelector("#completed-list");
+
+function updateListDisplay(){
+    getListsFromLocalStorage();
+    
+}
+
 
 //------------------------------------------------------------------------------------------------------------//
 // Anime search section
