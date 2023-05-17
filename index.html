@@ -78,7 +78,7 @@
         <!-- Modal Section Starts -->
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button id="modal-button" type="button" class="btn btn-secondary btn-sm add-to-currently-watching" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop">+ add anime</button>
+                data-bs-target="#staticBackdrop">+</button>
         </div>
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -87,13 +87,12 @@
                     <div class="modal-header">
                         <!-- Anime Search Form -->
                         <h4 class="modal-title" id="staticBackdropLabel">Search by Anime Title</h4>
-
                         <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="searchFunction">
                             <input type="text" id="searchBox" placeholder="One Piece">
-                            <input type="submit" class="btn btn-secondary btn-sm" id="searchButton">
+                            <button type="submit" class="btn btn-secondary btn-sm" id="searchButton">Search</button>
                         </form>
                         <!-- Anime Search Result -->
                         <div id="searchResults"></div>
@@ -120,6 +119,10 @@
             <div id="current-list" class="columns is-flex-wrap-wrap">
                 <!-- List goes in here -->
                 <div class="column is-one-fifth">
+                    <header class="card-header">
+                        <button id="completed-btn" class="button is-success is-rounded">✓ </button>
+                        <button id="remove-btn" class="button is-danger is-rounded">✕</button>
+                    </header>
                     <div class="card">
                         <figure class="image is-4by3">
                             <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
