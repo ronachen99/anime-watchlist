@@ -56,11 +56,11 @@ function displaySearchResults(data) {
         //display the anime pictures
         var animeTile = document.createElement("div");
         //values for anime tile size
-        animeTile.setAttribute("style", "height:350px; width:250px; border-style:solid; border-radius:20px position: relative; display: inline; margin: 10px;");
+        animeTile.setAttribute('id', 'anime-tiles');
         //create container for image element
         var animeImgContainer = document.createElement("div");
         //set image container attributes
-        animeImgContainer.setAttribute("style", "position:relative;");
+        animeImgContainer.classList.add('img-container');
         //create image element
         var animeImg = document.createElement("img");
         //get the anime picture(s)
@@ -72,7 +72,7 @@ function displaySearchResults(data) {
         var addButton = document.createElement("button");
         //button style
         addButton.textContent = "+";
-        addButton.setAttribute("style", "border-radius: 20px; font-size:30px; position: absolute; top: 0; right: 0;width:40px;height:40px");
+        addButton.classList.add('add-button');
         //append buttons to tile
         animeImgContainer.appendChild(addButton);
         //append image to container
@@ -92,12 +92,6 @@ function displaySearchResults(data) {
 
     }
 }
-
-
-
-
-
-
 
 //------------------------------------------------------------------------------------------------------------//
 // Quote Search Section
