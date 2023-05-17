@@ -56,11 +56,11 @@ function displaySearchResults(data) {
         //display the anime pictures
         var animeTile = document.createElement("div");
         //values for anime tile size
-        animeTile.setAttribute("style", "height:350px; width:250px; border-style:solid; border-radius:20px position: relative; display: inline; margin: 10px;");
+        animeTile.setAttribute('id', 'anime-tiles');
         //create container for image element
         var animeImgContainer = document.createElement("div");
         //set image container attributes
-        animeImgContainer.setAttribute("style", "position:relative;");
+        animeImgContainer.classList.add('img-container');
         //create image element
         var animeImg = document.createElement("img");
         //get the anime picture(s)
@@ -72,7 +72,7 @@ function displaySearchResults(data) {
         var addButton = document.createElement("button");
         //button style
         addButton.textContent = "+";
-        addButton.setAttribute("style", "border-radius: 20px; font-size:30px; position: absolute; top: 0; right: 0;width:40px;height:40px");
+        addButton.classList.add('add-button');
         //append buttons to tile
         animeImgContainer.appendChild(addButton);
         //append image to container
@@ -92,79 +92,3 @@ function displaySearchResults(data) {
 
     }
 }
-
-
-
-
-
-
-
-//------------------------------------------------------------------------------------------------------------//
-// Quote Search Section
-//------------------------------------------------------------------------------------------------------------//
-var quotesFormEl = document.querySelector('#quotes-form');
-var keywordEl = document.querySelector('#keyword');
-var optionEl = document.querySelector('#option');
-var quotesResult = document.querySelector('#quotes-result');
-//------------------------------------------------------------------------------------------------------------//
-// Quotes Form Handler: take in the input value and the selected option
-//------------------------------------------------------------------------------------------------------------//
-function quotesFormHandler(event) {
-    event.preventDefault();
-    var keyword = keywordEl.value.trim();
-    var option = optionEl.value.trim();
-    runData(keyword, option);
-    keywordEl.value = '';
-}
-//------------------------------------------------------------------------------------------------------------//
-// Run Data: run fetch data from Anime Chan API 
-//------------------------------------------------------------------------------------------------------------//
-function runData(keyword, option) {
-    quotesResult.innerHTML = '';
-    if (option == 1) {
-        fetchByTitle(keyword);
-    } else
-        fetchByName(keyword);
-}
-//------------------------------------------------------------------------------------------------------------//
-// Fetch by Title: fetch data from AnimeChan through anime title
-//------------------------------------------------------------------------------------------------------------//
-function fetchByTitle(keyword) {
-    var animechanURL = 'https://animechan.vercel.app/api/quotes/anime?title=' + keyword
-    fetch(animechanURL)
-        .then(function (response) {
-            if (!response.ok) {
-                return '(._.) sorry...nothing was found' //Need to make it into a modal etc.
-            }
-            response.json().then(function (data) {
-                createQuotes(data);
-            })
-        })
-}
-//------------------------------------------------------------------------------------------------------------//
-// Fetch by Name: fetch data from AnimeChan through anime character
-//------------------------------------------------------------------------------------------------------------//
-function fetchByName(keyword) {
-    var animechanURL = 'https://animechan.vercel.app/api/quotes/character?name=' + keyword
-    fetch(animechanURL)
-        .then(function (response) {
-            if (!response.ok) {
-                return '(._.) sorry...nothing was found' //Need to make it into a modal etc.
-            }
-            response.json().then(function (data) {
-                createQuotes(data);
-            })
-        })
-}
-//------------------------------------------------------------------------------------------------------------//
-// Create Quotes
-//------------------------------------------------------------------------------------------------------------//
-function createQuotes(data) {
-    for (x = 0; x < data.length; x++) {
-        quotesResult.innerHTML += `<li><p> ${data[x].character} </p><q> ${data[x].quote} </q></li>`
-    }
-}
-//------------------------------------------------------------------------------------------------------------//
-// Event Listener: that calls for quotes form handler on click
-//------------------------------------------------------------------------------------------------------------//
-quotesFormEl.addEventListener('submit', quotesFormHandler);
