@@ -1,16 +1,31 @@
-//add to list buttons
-
+//list items
+var currentlyWatching = [];
+var planToWatch = [];
+var completed = [];
 
 //search box elements
 var searchBox = document.querySelector("#searchBox");
 var searchButton = document.querySelector("#searchButton");
 //Wherever we want the anime tiles to appear
 var searchResultsContainer = document.querySelector("#searchResults");
+//add to currently watching button
+var addToCurrentlyWatching = document.querySelector(".currently-watching")
 
+//list type selector
+var listType = "";
+//url variables
 var searchCriteria = "";
 var jikanUrl;
-//
 
+//event listener for add to currentlyWatching section button
+addToCurrentlyWatching.addEventListener("click", function () {
+    listType = "currentlyWatching";
+})
+//event listener for add to planToWatch section button
+
+//event listener for add to completed section button
+
+//event listener for search field
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
     //if search box isn't empty
@@ -20,6 +35,7 @@ searchButton.addEventListener("click", function (event) {
         console.log("searching " + jikanUrl);
         getSearchResults(searchCriteria);
     }
+    //if search results are empty
     else {
 
     }
@@ -47,6 +63,7 @@ function clearSearchResults() {
         searchResultsContainer.removeChild(searchResultsContainer.firstChild);
     }
 }
+
 //need to get the list
 function displaySearchResults(data) {
     //clear existing search results
@@ -70,27 +87,49 @@ function displaySearchResults(data) {
         animeImg.setAttribute("alt", "animeImage");
         //create + buttons
         var addButton = document.createElement("button");
-        //button style
+        //button attributes
         addButton.textContent = "+";
-        addButton.setAttribute("style", "border-radius: 20px; font-size:30px; position: absolute; top: 0; right: 0;width:40px;height:40px");
+        addButton.setAttribute("style", "border-radius: 20px; font-size:30px; position: absolute; top: 0; right: 0;width:40px;height:40px;");
+        //set a unique id for each container
+        addButton.setAttribute("id", "animeTile-" + x);
         //append buttons to tile
         animeImgContainer.appendChild(addButton);
         //append image to container
         animeImgContainer.appendChild(animeImg);
         //append image container to tile
         animeTile.appendChild(animeImgContainer);
+        //click event for addButtons
+        addButton.addEventListener("click", function (event) {
+            //switch case for which list to add to
+            switch (listType) {
+                case "currentlyWatching":
+                    //compare chosen anime id to all other anime id's currently in list
+                    for (y = 0; y > currentlyWatching.length; y++) {
+                        //if chosen anime isnt already on the list, add it
+                        if (currentlyWatching.data[y].mal_id !== data.data[(addButton.id.split("-")[1])].mal_id) {
+                            console.log(currentlyWatching[0]);
+                            //push anime object to currentlyWatching list
+                            currentlyWatching.push(data.data[addButton.id.split("-")[1]]);
+                        }
+                    }
+
+                    console.log(currentlyWatching[0]);
+                    break;
+            }
+
+
+            //if anime isn't already added to the list, add it
 
 
 
-        //if anime isn't already added to the list, add it
+        })
 
         //tile classes if needed
         animeTile.classList = "";
 
         searchResultsContainer.appendChild(animeTile);
-        console.log(animeTile.attributes);
-
     }
+
 }
 
 
