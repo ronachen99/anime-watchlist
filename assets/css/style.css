@@ -75,6 +75,13 @@ h5 {
     background-size: cover;
 }
 
+/* Set layout for the modal button */
+#modal-button {
+    padding: 5px 18px;
+    font-size: 20px;
+    border-radius: 50%;
+}
+
 /* Set layout for the anime search results in the modal */
 #anime-tiles {
     position: relative;
@@ -93,13 +100,35 @@ h5 {
 
 /* Set styling and positioning for the buttons in the anime search modal */
 .add-button {
-    border: solid 3px black;
+    border: solid 3px rgb(255, 255, 255);
     background-color: white;
-    opacity: 60%;
+    opacity: 70%;
     border-radius: 20px;
     font-size:30px;
     position: relative;
     top: 45px;
     left: 75%;
     width: 15%;
+}
+
+/* Set styling and positioning for the remove and completed buttons on the anime list cards */
+#completed-btn,
+#remove-btn {
+    padding: 7px 13px;
+    position: relative;
+}
+
+/* Hides the header of the anime cards */
+.card-header {
+    background-color: inherit;
+    box-shadow: none;
+    border-bottom: none;
+    display: flex;
+    justify-content: space-between;
+    opacity: 0%;
+}
+
+/* Shows the header of the anime cards along with the buttons */
+.card-header:hover {
+    opacity: 100%;
 }
