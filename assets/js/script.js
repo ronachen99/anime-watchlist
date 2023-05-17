@@ -1,13 +1,29 @@
 //------------------------------------------------------------------------------------------------------------//
-// Anime search section
+// Local storage section
 //------------------------------------------------------------------------------------------------------------//
-//variable to store search data
-var searchData;
-
 //list items
 var currentlyWatching = [];
 var planToWatch = [];
 var completed = [];
+//functions
+//save list items to local storage
+localStorage.clear();
+function setLocalStorageLists() {
+    localStorage.setItem("currentlyWatching", currentlyWatching);
+    localStorage.setItem("planToWatch", planToWatch);
+    localStorage.setItem("completed", completed);
+}
+function getListsFromLocalStorage() {
+    currentlyWatching = localStorage.getItem("currentlyWatching");
+    planToWatch = localStorage.getItem("planToWatch");
+    completed = localStorage.getItem("completed");
+}
+
+//------------------------------------------------------------------------------------------------------------//
+// Anime search section
+//------------------------------------------------------------------------------------------------------------//
+//variable to store search data
+var searchData;
 
 //search box elements
 var searchBox = document.querySelector("#searchBox");
@@ -37,6 +53,7 @@ function setListType(value) {
 
 //search result constructor
 function searchResultConstructor(event) {
+    console.log(listType);
     //if search box isn't empty
     if (searchBox.value !== "") {
         searchCriteria = searchBox.value.trim();
@@ -124,19 +141,34 @@ function addItemsToList(event) {
         //set clickedData equal to the search data
         var clickedData = searchData.data[tileIndex];
         //add the clicked data to the respective list
-        //add the clickedData to the selected list if it's not already in the list
-        if (listType === "currentlyWatching" && !currentlyWatching.includes(clickedData)) {
-            currentlyWatching.push(clickedData);
-            console.log("Updated currentlyWatching array: ");
-            console.log(currentlyWatching);
-        } else if (listType === "planToWatch" && !planToWatch.includes(clickedData)) {
-            planToWatch.push(clickedData);
-        } else if (listType === "completed" && !completed.includes(clickedData)) {
-            completed.push(clickedData);
+        //add the clickedData to the selected list if it's not already in ANY of the lists
+        if (!currentlyWatching.includes(clickedData.mal_id) && !planToWatch.includes(clickedData.mal_id) && !completed.includes(clickedData.mal_id)) {
+            switch (listType) {
+                case ("currentlyWatching"):
+                    currentlyWatching.push(clickedData.mal_id);
+                    console.log("Updated currentlyWatching array: ");
+                    console.log(currentlyWatching);
+                    console.log("Updated local storage");
+                    setLocalStorageLists();
+                    break;
+                case ("planToWatch"):
+                    planToWatch.push(clickedData.mal_id);
+                    console.log("Updated plantoWatch array: ");
+                    console.log(planToWatch);
+                    console.log("Updated local storage");
+                    setLocalStorageLists();
+                    break;
+                case ("completed"):
+                    completed.push(clickedData.mal_id);
+                    console.log("Updated completed array: ");
+                    console.log(completed);
+                    console.log("Updated local storage");
+                    setLocalStorageLists();
+                    break;
+            }
         }
     }
 }
-
 
 
 
@@ -218,13 +250,13 @@ addToCurrentlyWatching.addEventListener("click", function () {
     setListType("currentlyWatching");
 });
 
-// addToPlanToWatch.addEventListener("click", function () {
-//     setListType("planToWatch");
-// });
+addToPlanToWatch.addEventListener("click", function () {
+    setListType("planToWatch");
+ });
 
-// addToCompleted.addEventListener("click", function () {
-//     setListType("completed");
-// });
+addToCompleted.addEventListener("click", function () {
+    setListType("completed");
+ });
 
 //------------------------------------------------------------------------------------------------------------//
 // Event Listener for search anime constructor
