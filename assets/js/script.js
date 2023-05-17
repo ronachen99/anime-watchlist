@@ -1,37 +1,47 @@
 //------------------------------------------------------------------------------------------------------------//
-// Anime search section
+// Local storage section
 //------------------------------------------------------------------------------------------------------------//
-//variable to store search data
-var searchData;
 
+//------------------------------------------------------------------------------------------------------------//
+// List display section
+//------------------------------------------------------------------------------------------------------------//
 //list items
 var currentlyWatching = [];
 var planToWatch = [];
 var completed = [];
 
+
+//add to list buttons
+var addToCurrentlyWatching = document.querySelector("#currently-watching");
+var addToPlanToWatch;
+var addToCompleted;
+
+
+//------------------------------------------------------------------------------------------------------------//
+// Anime search section
+//------------------------------------------------------------------------------------------------------------//
+//variable to store search data
+var searchData;
 //search box elements
 var searchBox = document.querySelector("#searchBox");
 var searchButton = document.querySelector("#searchButton");
-
-//Wherever we want the anime tiles to appear
 var searchResultsContainer = document.querySelector("#searchResults");
-
-//add to currently watching button
-var addToCurrentlyWatching = document.querySelector(".add-to-currently-watching")
-
 //list type selector
 var listType = "";
 //url variables
 var searchCriteria = "";
 var jikanUrl;
 
-//event listener for add to currentlyWatching section button
+//event listeners for add to section buttons
 addToCurrentlyWatching.addEventListener("click", function () {
     listType = "currentlyWatching";
 })
-//event listener for add to planToWatch section button
-
-//event listener for add to completed section button
+addToPlanToWatch.addEventListener("click", function () {
+    listType = "addToPlanToWatch";
+})
+addToCompleted.addEventListener("click", function () {
+    listType = "addToCompleted";
+})
 
 //event listener for search field
 searchButton.addEventListener("click", function (event) {
@@ -49,6 +59,9 @@ searchButton.addEventListener("click", function (event) {
     }
 })
 
+//------------------------------------------------------------------------------------------------------------//
+// Search results section
+//------------------------------------------------------------------------------------------------------------//
 function getSearchResults(searchCriteria) {
     if (searchCriteria) {
         //search
@@ -74,7 +87,7 @@ function clearSearchResults() {
     }
 }
 
-//need to get the list
+//get search results and display list items
 function displaySearchResults(data) {
     //clear existing search results
     clearSearchResults();
