@@ -20,7 +20,7 @@ searchButton.addEventListener("click", function (event) {
         console.log("searching " + jikanUrl);
         getSearchResults(searchCriteria);
     }
-    else{
+    else {
 
     }
 })
@@ -37,13 +37,13 @@ function getSearchResults(searchCriteria) {
                 displaySearchResults(data);
             });
     }
-    else{
+    else {
         //display error
     }
 }
 
-function clearSearchResults(){
-    while(searchResultsContainer.firstChild){
+function clearSearchResults() {
+    while (searchResultsContainer.firstChild) {
         searchResultsContainer.removeChild(searchResultsContainer.firstChild);
     }
 }
@@ -51,22 +51,42 @@ function clearSearchResults(){
 function displaySearchResults(data) {
     //clear existing search results
     clearSearchResults();
+    //loop through each result
     for (x = 0; x < data.data.length; x++) {
         //display the anime pictures
-        console.log(data.data[x]);
-        var animeTile = document.createElement("img");
+        var animeTile = document.createElement("div");
         //values for anime tile size
-        animeTile.setAttribute("style","height:350px; width:250px");
-        //Add + buttons to each anime tile
+        animeTile.setAttribute("style", "height:350px; width:250px; border-style:solid; border-radius:20px position: relative; display: inline; margin: 10px;");
+        //create container for image element
+        var animeImgContainer = document.createElement("div");
+        //set image container attributes
+        animeImgContainer.setAttribute("style", "position:relative;");
+        //create image element
+        var animeImg = document.createElement("img");
+        //get the anime picture(s)
+        var tileLink = data.data[x].images.jpg.image_url;
+        //set animeImg attributes
+        animeImg.setAttribute("src", tileLink);
+        animeImg.setAttribute("alt", "animeImage");
+        //create + buttons
+        var addButton = document.createElement("button");
+        //button style
+        addButton.textContent = "+";
+        addButton.setAttribute("style", "border-radius: 20px; font-size:30px; position: absolute; top: 0; right: 0;width:40px;height:40px");
+        //append buttons to tile
+        animeImgContainer.appendChild(addButton);
+        //append image to container
+        animeImgContainer.appendChild(animeImg);
+        //append image container to tile
+        animeTile.appendChild(animeImgContainer);
+
+
 
         //if anime isn't already added to the list, add it
 
         //tile classes if needed
         animeTile.classList = "";
-        //get the anime picture(s)
-        var tileLink = data.data[x].images.jpg.image_url;
-        //
-        animeTile.setAttribute("src", tileLink, "alt", "testing");
+
         searchResultsContainer.appendChild(animeTile);
         console.log(animeTile.attributes);
 
