@@ -128,7 +128,7 @@ function fetchByTitle(keyword) {
     fetch(animechanURL)
         .then(function (response) {
             if (!response.ok) {
-                return '(._.) sorry...nothing was found' //Need to make it into a modal etc.
+                return errorResponse();
             }
             response.json().then(function (data) {
                 createQuotes(data);
@@ -143,7 +143,7 @@ function fetchByName(keyword) {
     fetch(animechanURL)
         .then(function (response) {
             if (!response.ok) {
-                return '(._.) sorry...nothing was found' //Need to make it into a modal etc.
+               return errorResponse();
             }
             response.json().then(function (data) {
                 createQuotes(data);
@@ -157,6 +157,12 @@ function createQuotes(data) {
     for (x = 0; x < data.length; x++) {
         quotesResult.innerHTML += `<li><p> ${data[x].character} </p><q> ${data[x].quote} </q></li>`
     }
+}
+//------------------------------------------------------------------------------------------------------------//
+// Error Response: sends an error message
+//------------------------------------------------------------------------------------------------------------//
+function errorResponse() {
+    quotesResult.innerHTML += '(._.) sorry...something went wrong...';
 }
 //------------------------------------------------------------------------------------------------------------//
 // Event Listener: that calls for quotes form handler on click
