@@ -17,7 +17,9 @@ var searchButton = document.querySelector("#searchButton");
 var searchResultsContainer = document.querySelector("#searchResults");
 
 //add to currently watching button
-var addToCurrentlyWatching = document.querySelector(".add-to-currently-watching")
+var addToCurrentlyWatching = document.querySelector(".add-to-currently-watching");
+var addToPlanToWatch = document.querySelector(".add-to-plan-to-watch");
+var addToCompleted = document.querySelector(".add-to-completed");
 
 //list type selector
 var listType = "";
@@ -25,17 +27,16 @@ var listType = "";
 var searchCriteria = "";
 var jikanUrl;
 
-//event listener for add to currentlyWatching section button
-addToCurrentlyWatching.addEventListener("click", function () {
-    listType = "currentlyWatching";
-})
-//event listener for add to planToWatch section button
+//list type functions
+function getListType() {
+    return listType;
+}
+function setListType(value) {
+    listType = value;
+}
 
-//event listener for add to completed section button
-
-//event listener for search field
-searchButton.addEventListener("click", function (event) {
-    event.preventDefault();
+//search result constructor
+function searchResultConstructor(event) {
     //if search box isn't empty
     if (searchBox.value !== "") {
         searchCriteria = searchBox.value.trim();
@@ -47,8 +48,9 @@ searchButton.addEventListener("click", function (event) {
     else {
 
     }
-})
+}
 
+//event listener for search field
 function getSearchResults(searchCriteria) {
     if (searchCriteria) {
         //search
@@ -95,7 +97,7 @@ function displaySearchResults(data) {
         //set animeImg attributes
         animeImg.setAttribute("src", tileLink);
         animeImg.setAttribute("alt", "animeImage");
-        //create + buttons
+        //construct and add buttons to items
         var addButton = document.createElement("button");
         //button attributes
         addButton.textContent = "+";
@@ -112,8 +114,7 @@ function displaySearchResults(data) {
     }
 }
 
-//event listener for buttons
-searchResultsContainer.addEventListener("click", function (event) {
+function addItemsToList(event) {
     //check if the button is clicked
     if (event.target.classList.contains("add-button")) {
         //get the button's parent element
@@ -133,9 +134,10 @@ searchResultsContainer.addEventListener("click", function (event) {
         } else if (listType === "completed" && !completed.includes(clickedData)) {
             completed.push(clickedData);
         }
-        //console.log("Added to", listType, ":", clickedData);
     }
-});
+}
+
+
 
 
 //------------------------------------------------------------------------------------------------------------//
@@ -188,7 +190,7 @@ function fetchByName(keyword) {
     fetch(animechanURL)
         .then(function (response) {
             if (!response.ok) {
-               return errorResponse();
+                return errorResponse();
             }
             response.json().then(function (data) {
                 createQuotes(data);
@@ -209,6 +211,36 @@ function createQuotes(data) {
 function errorResponse() {
     quotesResult.innerHTML += '(._.) sorry...something went wrong...';
 }
+//------------------------------------------------------------------------------------------------------------//
+// Event Listeners for add to list buttons
+//------------------------------------------------------------------------------------------------------------//
+addToCurrentlyWatching.addEventListener("click", function () {
+    setListType("currentlyWatching");
+});
+
+// addToPlanToWatch.addEventListener("click", function () {
+//     setListType("planToWatch");
+// });
+
+// addToCompleted.addEventListener("click", function () {
+//     setListType("completed");
+// });
+
+//------------------------------------------------------------------------------------------------------------//
+// Event Listener for search anime constructor
+//------------------------------------------------------------------------------------------------------------//
+searchButton.addEventListener("click", function (event) {
+    //prevent the page from refreshing
+    event.preventDefault();
+    searchResultConstructor(event);
+});
+//------------------------------------------------------------------------------------------------------------//
+// Event listener for add to list buttons
+//------------------------------------------------------------------------------------------------------------//
+searchResultsContainer.addEventListener("click", function (event) {
+    addItemsToList(event);
+})
+
 //------------------------------------------------------------------------------------------------------------//
 // Event Listener: that calls for quotes form handler on click
 //------------------------------------------------------------------------------------------------------------//
