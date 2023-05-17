@@ -52,7 +52,6 @@
                                     <a class="navbar-item" href="#completed">Completed</a>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -155,19 +154,15 @@
         <h3 class="title is-3">Quotes</h3>
         <p class="subtitle is-5">search for quotes from your favourite anime or character</p>
         <form id="quotes-form" class="input-group mb-3">
-            <input type="text"  placeholder="Naruto" class="form-control">
-            <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+            <input id="keyword" type="text"  placeholder="Naruto" class="form-control" />
+            <select id="option" class="form-select"  aria-label="Example select with button addon">
                 <option value="1" selected>Anime Title</option>
                 <option value="2">Anime Character</option>
             </select>
-            <button class="btn btn-outline-secondary" type="button">Search</button>
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
         </form>
-        <div class="quotes-result">
-            <ul>
-                <li>
-                    <q>This is an example quote!</q>
-                </li>
-            </ul>
+        <div id="quotes-result">
+        <!-- Quotes Goes Here-->
         </div>
     </section>
     <!-- Quotes Section Ends -->
