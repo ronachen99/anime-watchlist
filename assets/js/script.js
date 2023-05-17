@@ -9,7 +9,7 @@ var searchButton = document.querySelector("#searchButton");
 //Wherever we want the anime tiles to appear
 var searchResultsContainer = document.querySelector("#searchResults");
 //add to currently watching button
-var addToCurrentlyWatching = document.querySelector(".currently-watching")
+var addToCurrentlyWatching = document.querySelector(".add-to-currently-watching")
 
 //list type selector
 var listType = "";
@@ -49,6 +49,7 @@ function getSearchResults(searchCriteria) {
                 return response.json();
             })
             .then(function (data) {
+                //display data
                 console.log(data);
                 displaySearchResults(data);
             });
@@ -63,6 +64,9 @@ function clearSearchResults() {
         searchResultsContainer.removeChild(searchResultsContainer.firstChild);
     }
 }
+
+
+
 
 //need to get the list
 function displaySearchResults(data) {
@@ -92,48 +96,32 @@ function displaySearchResults(data) {
         addButton.setAttribute("style", "border-radius: 20px; font-size:30px; position: absolute; top: 0; right: 0;width:40px;height:40px;");
         //set a unique id for each container
         addButton.setAttribute("id", "animeTile-" + x);
+        addButton.setAttribute("class", "addBtn");
         //append buttons to tile
         animeImgContainer.appendChild(addButton);
         //append image to container
         animeImgContainer.appendChild(animeImg);
         //append image container to tile
         animeTile.appendChild(animeImgContainer);
-        //click event for addButtons
-        addButton.addEventListener("click", function (event) {
-            //switch case for which list to add to
-            switch (listType) {
-                case "currentlyWatching":
-                    //compare chosen anime id to all other anime id's currently in list
-                    for (y = 0; y > currentlyWatching.length; y++) {
-                        //if chosen anime isnt already on the list, add it
-                        if (currentlyWatching.data[y].mal_id !== data.data[(addButton.id.split("-")[1])].mal_id) {
-                            console.log(currentlyWatching[0]);
-                            //push anime object to currentlyWatching list
-                            currentlyWatching.push(data.data[addButton.id.split("-")[1]]);
-                        }
-                    }
-
-                    console.log(currentlyWatching[0]);
-                    break;
-            }
-
-
-            //if anime isn't already added to the list, add it
-
-
-
-        })
-
         //tile classes if needed
         animeTile.classList = "";
-
         searchResultsContainer.appendChild(animeTile);
     }
-
 }
-
-
-
+//event listener for buttons
+searchResultsContainer.addEventListener("click", function(event) {
+    // Check if the clicked element is a button with the "addBtn" class
+    if (event.target.classList.contains("addBtn")) {
+      // Get the button's parent element (animeImgContainer)
+      var animeImgContainer = event.target.parentNode;
+      // Perform actions with the animeImgContainer or its children
+      var animeImg = animeImgContainer.querySelector("img");
+      var imageUrl = animeImg.getAttribute("src");
+      console.log("Clicked button for image:", imageUrl);
+      var animeTile = animeImgContainer.parentNode;
+      console.log("Parent tile:", animeTile);
+    }
+  });
 
 
 
