@@ -77,11 +77,11 @@ function displaySearchResults(data) {
         //display the anime pictures
         var animeTile = document.createElement("div");
         //values for anime tile size
-        animeTile.setAttribute("style", "height:350px; width:250px; border-style:solid; border-radius:20px position: relative; display: inline; margin: 10px;");
+        animeTile.setAttribute('id', 'anime-tiles');
         //create container for image element
         var animeImgContainer = document.createElement("div");
         //set image container attributes
-        animeImgContainer.setAttribute("style", "position:relative;");
+        animeImgContainer.classList.add('img-container');
         //create image element
         var animeImg = document.createElement("img");
         //get the anime picture(s)
@@ -93,10 +93,7 @@ function displaySearchResults(data) {
         var addButton = document.createElement("button");
         //button attributes
         addButton.textContent = "+";
-        addButton.setAttribute("style", "border-radius: 20px; font-size:30px; position: absolute; top: 0; right: 0;width:40px;height:40px;");
-        //set a unique id for each container
-        addButton.setAttribute("id", "animeTile-" + x);
-        addButton.setAttribute("class", "addBtn");
+        addButton.classList.add('add-button');
         //append buttons to tile
         animeImgContainer.appendChild(addButton);
         //append image to container
@@ -108,23 +105,6 @@ function displaySearchResults(data) {
         searchResultsContainer.appendChild(animeTile);
     }
 }
-//event listener for buttons
-searchResultsContainer.addEventListener("click", function(event) {
-    // Check if the clicked element is a button with the "addBtn" class
-    if (event.target.classList.contains("addBtn")) {
-      // Get the button's parent element (animeImgContainer)
-      var animeImgContainer = event.target.parentNode;
-      // Perform actions with the animeImgContainer or its children
-      var animeImg = animeImgContainer.querySelector("img");
-      var imageUrl = animeImg.getAttribute("src");
-      console.log("Clicked button for image:", imageUrl);
-      var animeTile = animeImgContainer.parentNode;
-      console.log("Parent tile:", animeTile);
-    }
-  });
-
-
-
 
 //------------------------------------------------------------------------------------------------------------//
 // Quote Search Section
