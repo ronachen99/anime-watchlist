@@ -67,9 +67,9 @@ function clearSearchResults() {
 
 // Create Anime Search Tiles
 function displaySearchResults(data) {
-    //clear existing search results
+    // Clear existing search results
     clearSearchResults();
-    //loop through each result
+    // Loop through each result
     for (x = 0; x < data.data.length; x++) {
         var tileLink = data.data[x].images.jpg.image_url;
         var animeTile = document.createElement("div");
