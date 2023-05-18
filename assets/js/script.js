@@ -1,33 +1,31 @@
 //------------------------------------------------------------------------------------------------------------//
 // Anime search section
 //------------------------------------------------------------------------------------------------------------//
-//variable to store search data
+
+// Variable to store search data
 var searchData;
 
-//list items
+// List Arrays
 var currentlyWatching = [];
 var planToWatch = [];
 var completed = [];
 
-//search box elements
+// Search Box Elements
 var searchBox = document.querySelector("#searchBox");
 var searchButton = document.querySelector("#searchButton");
 
-//Wherever we want the anime tiles to appear
+// Anime Tiles Container (from search results)
 var searchResultsContainer = document.querySelector("#searchResults");
 
-//add to currently watching button
+// Add to currently watching button
 var addToCurrentlyWatching = document.querySelector(".add-to-currently-watching");
 var addToPlanToWatch = document.querySelector(".add-to-plan-to-watch");
 var addToCompleted = document.querySelector(".add-to-completed");
 
-//list type selector
+// List Type Selector
 var listType = "";
-//url variables
-var searchCriteria = "";
-var jikanUrl;
 
-//list type functions
+// List Type Functions
 function getListType() {
     return listType;
 }
@@ -35,85 +33,54 @@ function setListType(value) {
     listType = value;
 }
 
-//search result constructor
+// Search Result Constructor
 function searchResultConstructor(event) {
-    //if search box isn't empty
-    if (searchBox.value !== "") {
-        searchCriteria = searchBox.value.trim();
-        jikanUrl = "https://api.jikan.moe/v4/anime?q=" + searchCriteria + "&sfw";
-        console.log("searching " + jikanUrl);
-        getSearchResults(searchCriteria);
-    }
-    //if search results are empty
-    else {
-
-    }
+    event.preventDefault();
+   var searchCriteria = searchBox.value.trim();
+    getSearchResults(searchCriteria);
+    searchBox.value = '';
 }
 
-//event listener for search field
+// Fetch Anime Data
 function getSearchResults(searchCriteria) {
-    if (searchCriteria) {
-        //search
-        fetch(jikanUrl)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                //display data
+   var jikanUrl = "https://api.jikan.moe/v4/anime?q=" + searchCriteria + "&sfw";
+   console.log("searching " + jikanUrl);
+    fetch(jikanUrl)
+        .then(function (response) {
+             response.json().then(function (data) {
                 console.log(data);
+            if (data.data.length === 0) {
+                return searchResultsContainer.textContent = '(._.) sorry...nothing was found...';
+                }  
                 searchData = data;
                 displaySearchResults(data);
             });
-    }
-    else {
-        //display error
-    }
+    })
 }
 
+// Empty Search Results
 function clearSearchResults() {
     while (searchResultsContainer.firstChild) {
         searchResultsContainer.removeChild(searchResultsContainer.firstChild);
     }
 }
 
-//need to get the list
+// Create Anime Search Tiles
 function displaySearchResults(data) {
-    //clear existing search results
+    // Clear existing search results
     clearSearchResults();
-    //loop through each result
+    // Loop through each result
     for (x = 0; x < data.data.length; x++) {
-        //display the anime pictures
-        var animeTile = document.createElement("div");
-        //values for anime tile size
-        animeTile.setAttribute('id', 'anime-tiles');
-        //create container for image element
-        var animeImgContainer = document.createElement("div");
-        //set image container attributes
-        animeImgContainer.classList.add('img-container');
-        //create image element
-        var animeImg = document.createElement("img");
-        //get the anime picture(s)
         var tileLink = data.data[x].images.jpg.image_url;
-        //set animeImg attributes
-        animeImg.setAttribute("src", tileLink);
-        animeImg.setAttribute("alt", "animeImage");
-        //construct and add buttons to items
-        var addButton = document.createElement("button");
-        //button attributes
-        addButton.textContent = "+";
-        addButton.classList.add('add-button');
-        //append buttons to tile
-        animeImgContainer.appendChild(addButton);
-        //append image to container
-        animeImgContainer.appendChild(animeImg);
-        //append image container to tile
-        animeTile.appendChild(animeImgContainer);
-        //tile classes if needed
+        var animeTile = document.createElement("div");
+        animeTile.setAttribute('id', 'anime-tiles');
+        animeTile.innerHTML=`<div class='image-container'><button class='add-button'>+</button><img src='${tileLink}' alt='animeImage'/></div>`
         animeTile.classList = "";
         searchResultsContainer.appendChild(animeTile);
     }
 }
 
+// Add selecteed items to list
 function addItemsToList(event) {
     //check if the button is clicked
     if (event.target.classList.contains("add-button")) {
@@ -288,8 +255,15 @@ searchButton.addEventListener("click", function (event) {
 searchResultsContainer.addEventListener("click", function (event) {
     addItemsToList(event);
 })
-
 //------------------------------------------------------------------------------------------------------------//
 // Event Listener: that calls for quotes form handler on click
 //------------------------------------------------------------------------------------------------------------//
 quotesFormEl.addEventListener('submit', quotesFormHandler);
+//------------------------------------------------------------------------------------------------------------//
+// Animate.css Properties
+//------------------------------------------------------------------------------------------------------------//
+const hero = document.querySelector('.hero');
+hero.style.setProperty('--animate-duration', '5s');
+
+const nav = document.querySelector('navbar-menu');
+nav.style.setProperty('--animate-duration', '10s');
