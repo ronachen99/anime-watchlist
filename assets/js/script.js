@@ -139,7 +139,55 @@ function addItemsToList(event) {
 
 
 
+//------------------------------------------------------------------------------------------------------------//
+// Remove Anime: remove anime from the list
+//------------------------------------------------------------------------------------------------------------//
+var completedButton = document.querySelector('#completed-btn');
+// var animeId = currentlyWatching[x].mal_id
 
+function completedAnime() {
+    var container = this.closest('.column');
+    container.parentNode.removeChild(container);
+    
+    // Grab the ID of the anime from the parent container's id
+    var animeId = this.parentNode.parentNode.id;
+    
+    // Find the index of the id
+    var index = currentlyWatching.findIndex(function(anime){
+        return  anime.id === animeId;
+    });
+    // Remove and add to completed array
+    if (index !== -1) {
+        var removedAnime = currentlyWatching.splice(index, 1)[0];
+        completed.push(removedAnime);
+    }
+}
+
+completedButton.addEventListener('click', completedAnime);
+//------------------------------------------------------------------------------------------------------------//
+// Remove Anime: remove anime from the list
+//------------------------------------------------------------------------------------------------------------//
+var removeButton = document.querySelector('#remove-btn');
+
+function removeAnime() {
+    var container = this.closest('.column');
+    container.parentNode.removeChild(container);
+
+    // Grab the ID of the anime from the parent container's id
+    var animeId = this.parentNode.parentNode.id;
+    
+    // Find the index of the id
+    var index = currentlyWatching.findIndex(function(anime){
+        return anime.id === animeId;
+    });
+
+    // Remove anime from the array if the anime id is found in the array
+    if (index !== -1) {
+        animeArray.splice(index, 1);
+    }
+}
+
+removeButton.addEventListener('click', removeAnime);
 //------------------------------------------------------------------------------------------------------------//
 // Quote Search Section
 //------------------------------------------------------------------------------------------------------------//
