@@ -1,14 +1,104 @@
 //------------------------------------------------------------------------------------------------------------//
-// Anime search section
+// Local storage section
+//------------------------------------------------------------------------------------------------------------//
+//update lists
+//updateListDisplay();
+//list items
+var currentlyWatching = JSON.parse(localStorage.getItem("currentlyWatching")) || [];
+var planToWatch = JSON.parse(localStorage.getItem("planToWatch")) || [];
+var completed = JSON.parse(localStorage.getItem("completedWatching")) || [];
+
+//functions
+//update lists from local storage
+function updateLocalStorageLists() {
+    var currentlyWatching = JSON.parse(localStorage.getItem("currentlyWatching")) || [];
+    var planToWatch = JSON.parse(localStorage.getItem("planToWatch")) || [];
+    var completed = JSON.parse(localStorage.getItem("completedWatching")) || [];
+}
+
+//save list items to local storage
+function setLocalStorageLists() {
+    localStorage.setItem("currentlyWatching", JSON.stringify(currentlyWatching));
+    localStorage.setItem("planToWatch", JSON.stringify(planToWatch));
+    localStorage.setItem("completed", JSON.stringify(completed));
+}
+
+function clearLocalStorage() {
+    localStorage.clear();
+}
+
+//------------------------------------------------------------------------------------------------------------//
+// Display list items from local storage
+//------------------------------------------------------------------------------------------------------------//
+//list sections
+var currentlyWatchingListDisplay = document.querySelector("#current-list");
+var planToWatchListDisplay = document.querySelector("#plan-list");
+var completedListDisplay = document.querySelector("#completed-list");
+
+
+//convert a list of id's into a list of object data
+function convertListsToObjectData(list) {
+    //list to return
+    var animeObjectList = [];
+    console.log(list);
+    // //call api for each id in list
+    if (list.length === 0) {
+        //should never be called
+        console.log("empty list.");
+        //return list
+        return animeObjectList;
+    } else {
+        for (x = 0; x < list.length; x++) {
+
+            console.log((searchAnimeId(list[x])));
+        }
+        console.log(animeObjectList);
+        return animeObjectList;
+    }
+}
+
+function updateListDisplay() {
+    //convert lists to object data
+    var currentlyWatchingListData = [];
+    var planToWatchListData = [];
+    var completedListData = [];
+
+    if(currentlyWatching.length !== 0){
+        currentlyWatchingListData = convertListsToObjectData(currentlyWatching);
+    }
+    if(planToWatchListData.length !== 0){
+        planToWatchListData = convertListsToObjectData(currentlyWatching);
+    }
+    if(completedListData.length !== 0){
+        completedListData = convertListsToObjectData(currentlyWatching);
+    }
+    
+
+
+    // for(x = 0; x < currentlyWatching.length; x++){
+    //     currentlyWatchingListDisplay.innerHTML += '<div class="column is-one-fifth">' +
+    // '<header class="card-header">' +
+    // '    <button id="completed-btn" class="button is-success is-rounded">✓ </button>' +
+    // '    <button id="remove-btn" class="button is-danger is-rounded">✕</button>' +
+    // '</header>' +
+    // '<div class="card">' +
+    // '    <figure class="image is-4by3">' +
+    // '        <img src=${data} alt="Placeholder image">' +
+    // '    </figure>' +
+    // '    <div class="card-content">' +
+    // '        <h2>Example Title</h2>' +
+    // '    </div>' +
+    // '</div>' +
+    // '</div>';
+}
+
+
+//------------------------------------------------------------------------------------------------------------//
+// Anime search box section
 //------------------------------------------------------------------------------------------------------------//
 
 // Variable to store search data
 var searchData;
-
-// List Arrays
-var currentlyWatching = [];
-var planToWatch = [];
-var completed = [];
 
 // Search Box Elements
 var searchBox = document.querySelector("#searchBox");
@@ -36,26 +126,27 @@ function setListType(value) {
 // Search Result Constructor
 function searchResultConstructor(event) {
     event.preventDefault();
-   var searchCriteria = searchBox.value.trim();
+    var searchCriteria = searchBox.value.trim();
     getSearchResults(searchCriteria);
     searchBox.value = '';
 }
 
 // Fetch Anime Data
 function getSearchResults(searchCriteria) {
-   var jikanUrl = "https://api.jikan.moe/v4/anime?q=" + searchCriteria + "&sfw";
-   console.log("searching " + jikanUrl);
+    var jikanUrl = "https://api.jikan.moe/v4/anime?q=" + searchCriteria + "&sfw";
+    console.log("searching " + jikanUrl);
     fetch(jikanUrl)
         .then(function (response) {
-             response.json().then(function (data) {
+            response.json().then(function (data) {
                 console.log(data);
-            if (data.data.length === 0) {
-                return searchResultsContainer.textContent = '(._.) sorry...nothing was found...';
-                }  
-                searchData = data;
-                displaySearchResults(data);
+                if (data.data.length === 0) {
+                    return searchResultsContainer.textContent = '(._.) sorry...nothing was found...';
+                } else {
+                    searchData = data;
+                    displaySearchResults(data);
+                }
             });
-    })
+        })
 }
 
 // Empty Search Results
@@ -74,8 +165,7 @@ function displaySearchResults(data) {
         var tileLink = data.data[x].images.jpg.image_url;
         var animeTile = document.createElement("div");
         animeTile.setAttribute('id', 'anime-tiles');
-        animeTile.innerHTML=`<div class='image-container'><button class='add-button'>+</button><img src='${tileLink}' alt='animeImage'/></div>`
-        animeTile.classList = "";
+        animeTile.innerHTML = `<div class='image-container'><button class='add-button'>+</button><img src='${tileLink}' alt='animeImage'/></div>`
         searchResultsContainer.appendChild(animeTile);
     }
 }
@@ -91,15 +181,28 @@ function addItemsToList(event) {
         //set clickedData equal to the search data
         var clickedData = searchData.data[tileIndex];
         //add the clicked data to the respective list
-        //add the clickedData to the selected list if it's not already in the list
-        if (listType === "currentlyWatching" && !currentlyWatching.includes(clickedData)) {
-            currentlyWatching.push(clickedData);
-            console.log("Updated currentlyWatching array: ");
-            console.log(currentlyWatching);
-        } else if (listType === "planToWatch" && !planToWatch.includes(clickedData)) {
-            planToWatch.push(clickedData);
-        } else if (listType === "completed" && !completed.includes(clickedData)) {
-            completed.push(clickedData);
+        //add the clickedData to the selected list if it's not already in ANY of the lists
+        if (!currentlyWatching.includes(clickedData) && !planToWatch.includes(clickedData) && !completed.includes(clickedData)) {
+            switch (listType) {
+                case ("currentlyWatching"):
+                    currentlyWatching.push(clickedData);
+                    setLocalStorageLists();
+                    console.log("Updated local storage");
+                    updateListDisplay();
+                    break;
+                case ("planToWatch"):
+                    planToWatch.push(clickedData);
+                    //updateListDisplay();
+                    break;
+                case ("completed"):
+                    //setLocalStorageLists();
+                    //updateListDisplay();
+                    break;
+                default:
+                    console.log("item already added to list");
+            }
+            //updateListDisplay();
+            //setLocalStorageLists();
         }
     }
 }
@@ -233,28 +336,22 @@ addToCurrentlyWatching.addEventListener("click", function () {
     setListType("currentlyWatching");
 });
 
-// addToPlanToWatch.addEventListener("click", function () {
-//     setListType("planToWatch");
-// });
+addToPlanToWatch.addEventListener("click", function () {
+    setListType("planToWatch");
+});
 
-// addToCompleted.addEventListener("click", function () {
-//     setListType("completed");
-// });
+addToCompleted.addEventListener("click", function () {
+    setListType("completed");
+});
 
 //------------------------------------------------------------------------------------------------------------//
 // Event Listener for search anime constructor
 //------------------------------------------------------------------------------------------------------------//
-searchButton.addEventListener("click", function (event) {
-    //prevent the page from refreshing
-    event.preventDefault();
-    searchResultConstructor(event);
-});
+searchButton.addEventListener("click", searchResultConstructor);
 //------------------------------------------------------------------------------------------------------------//
 // Event listener for add to list buttons
 //------------------------------------------------------------------------------------------------------------//
-searchResultsContainer.addEventListener("click", function (event) {
-    addItemsToList(event);
-})
+searchResultsContainer.addEventListener("click", addItemsToList)
 //------------------------------------------------------------------------------------------------------------//
 // Event Listener: that calls for quotes form handler on click
 //------------------------------------------------------------------------------------------------------------//
@@ -265,5 +362,3 @@ quotesFormEl.addEventListener('submit', quotesFormHandler);
 const hero = document.querySelector('.hero');
 hero.style.setProperty('--animate-duration', '5s');
 
-const nav = document.querySelector('navbar-menu');
-nav.style.setProperty('--animate-duration', '10s');
