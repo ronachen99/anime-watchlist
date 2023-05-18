@@ -102,37 +102,14 @@ function clearSearchResults() {
 
 // Create Anime Search Tiles
 function displaySearchResults(data) {
-    //clear existing search results
+    // Clear existing search results
     clearSearchResults();
-    //loop through each result
+    // Loop through each result
     for (x = 0; x < data.data.length; x++) {
-        //display the anime pictures
-        var animeTile = document.createElement("div");
-        //values for anime tile size
-        animeTile.setAttribute('id', 'anime-tiles');
-        //create container for image element
-        var animeImgContainer = document.createElement("div");
-        //set image container attributes
-        animeImgContainer.classList.add('img-container');
-        //create image element
-        var animeImg = document.createElement("img");
-        //get the anime picture(s)
         var tileLink = data.data[x].images.jpg.image_url;
-        //set animeImg attributes
-        animeImg.setAttribute("src", tileLink);
-        animeImg.setAttribute("alt", "animeImage");
-        //construct and add buttons to items
-        var addButton = document.createElement("button");
-        //button attributes
-        addButton.textContent = "+";
-        addButton.classList.add('add-button');
-        //append buttons to tile
-        animeImgContainer.appendChild(addButton);
-        //append image to container
-        animeImgContainer.appendChild(animeImg);
-        //append image container to tile
-        animeTile.appendChild(animeImgContainer);
-        //tile classes if needed
+        var animeTile = document.createElement("div");
+        animeTile.setAttribute('id', 'anime-tiles');
+        animeTile.innerHTML=`<div class='image-container'><button class='add-button'>+</button><img src='${tileLink}' alt='animeImage'/></div>`
         animeTile.classList = "";
         searchResultsContainer.appendChild(animeTile);
     }
