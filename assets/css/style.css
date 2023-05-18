@@ -1,11 +1,64 @@
+/* Set root colors */
+:root {
+    --purple:#45388e;
+    --violet:#857eae;
+    --blue:#0f0e20;
+}
+
 /* Add font from Google Fonts */
 * {
     font-family: 'Raleway', sans-serif;
 }
 
+/* Set body colors */
+body {
+    background-color: var(--blue);
+    color: var(--purple);
+}
+
+/* Make breaks more visible */
+hr {
+    color:white;
+}
+
+/* Add glowing effect on hover */
+.glow:hover {
+    box-shadow: var(--violet) 0 0 20px;
+}
+
+/* Change heading color */
+.custom-heading {
+    color: var(--violet);
+}
+
+/* Change subheading color */
+.custom-subheading {
+    color: var(--purple);
+}
+
+/* Add margin around the footer message */
+h5 {
+    padding: 1%;
+    font-size: 20px;
+}
+
+/* Add neon text effect */
+.neonText {
+    color: #fff;
+    text-shadow: 
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    0 0 42px var(--purple),
+    0 0 82px var(--purple),
+    0 0 92px var(--purple),
+    0 0 102px var(--purple),
+    0 0 151px var(--purple);
+}
+
 /* Change positioning of the header */
 header {
-    position: relative;
+    position: relative; 
 }
 
 /* Add an image that covers full-height on landing page */
@@ -46,19 +99,7 @@ li {
 /* Add styling and layout for the footer */
 footer {
     text-align: center;
-    background-color:#25244e;
-    font-size: 24px;
-    color: #fe7733;
-}
-
-/* Add margin around the footer message */
-h5 {
-    padding: 1%;
-}
-
-/* Make a line through the word "never" */
-.bold {
-   text-decoration: line-through;
+    background-color: var(--blue);
 }
 
 /* Make anime results display in the center with spacing between each column */
@@ -74,6 +115,12 @@ h5 {
 .modal-body {
     background-image: url(../images/Search.jpg);
     background-size: cover;
+}
+
+/* Change font styling for the modal title */
+.modal-title {
+    color: var(--blue);
+    font-size: 20px;
 }
 
 /* Set layout for the modal button */

@@ -30,13 +30,13 @@
 
 <body>
     <!-- Header Element Starts -->
-    <header class="hero is-dark is-fullheight">
+    <header class="animate__animated animate__fadeIn hero is-dark is-fullheight">
         <!-- Full-Height Hero Banner Home Page -->
         <div class="hero-head">
             <!-- Navigation Bar -->
             <nav class="navbar">
                 <div class="container">
-                    <div id="navbarMenuHeroC" class="navbar-menu">
+                    <div id="navbarMenuHeroC" class="navbar-menu animate__animated animate__fadeInDown ">
                         <div class="navbar-end">
                             <a href="#home" class="navbar-item">
                                 Home
@@ -65,8 +65,8 @@
                 <h1 class="title is-1">
                     Anime Watchlist
                 </h1>
-                <p class="subtitle is-4">
-                    start <strong>exploring</strong> your list
+                <p class="neonText animate__animated animate__flash subtitle is-4">
+                    start exploring your list
                 </p>
             </div>
         </div>
@@ -77,8 +77,8 @@
 
         <!-- Modal Section Starts -->
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button id="modal-button" type="button" class="btn btn-secondary btn-sm add-to-currently-watching" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop">+</button>
+            <button id="modal-button" type="button" class="btn btn-secondary btn-sm add-to-currently-watching"
+                data-bs-toggle="modal" data-bs-target="#staticBackdrop">+</button>
         </div>
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -105,25 +105,25 @@
         </div>
         <!-- Modal Section Ends -->
 
-<div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>This is the modal content.</p>
-  </div>
-</div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>This is the modal content.</p>
+            </div>
+        </div>
 
         <!-- Currently Watching List Starts -->
         <div id="currently-watching">
-            <h2 class="title is-3">Currently Watching</h2>
+            <h2 class="custom-heading title is-3 ">Currently Watching</h2>
             <!-- List -->
             <div id="current-list" class="columns is-flex-wrap-wrap">
                 <!-- List goes in here -->
                 <div class="column is-one-fifth">
-                    <header class="card-header">
-                        <button id="completed-btn" class="button is-success is-rounded">✓ </button>
-                        <button id="remove-btn" class="button is-danger is-rounded">✕</button>
-                    </header>
-                    <div class="card">
+                    <div class="card glow ">
+                        <header class="card-header">
+                            <button id="completed-btn" class="button is-success is-rounded">✓ </button>
+                            <button id="remove-btn" class="button is-danger is-rounded">✕</button>
+                        </header>
                         <figure class="image is-4by3">
                             <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
                         </figure>
@@ -141,7 +141,7 @@
             <button id="modal-button" type="button" class="btn btn-secondary btn-sm add-to-plan-to-watch" data-bs-toggle="modal"
                 data-bs-target="#staticBackdrop">+</button>
         <div id="plan-to-watch">
-            <h2 class="title is-3">Plan to Watch</h2>
+            <h2 class="custom-heading title is-3">Plan to Watch</h2>
             <!-- List -->
             <div id="plan-list" class="columns is-flex-wrap-wrap">
                 <!-- List goes in here -->
@@ -155,7 +155,7 @@
             <button id="modal-button" type="button" class="btn btn-secondary btn-sm add-to-completed" data-bs-toggle="modal"
                 data-bs-target="#staticBackdrop">+</button>
         <div id="completed">
-            <h2 class="title is-3">Completed</h2>
+            <h2 class="custom-heading title is-3">Completed</h2>
             <!-- List -->
             <div id="completed-list" class="columns is-flex-wrap-wrap">
                 <!-- List goes in here -->
@@ -168,8 +168,8 @@
     <hr>
     <!-- Quotes Section Starts -->
     <section id="quotes" class="quotes-container">
-        <h3 class="title is-3">Quotes</h3>
-        <p class="subtitle is-5">search for quotes from your favourite anime or character</p>
+        <h3 class="title custom-heading is-3">Quotes</h3>
+        <p class="subtitle custom-subheading is-5">search for quotes from your favourite anime or character</p>
         <form id="quotes-form" class="input-group mb-3">
             <input id="keyword" type="text" placeholder="Naruto" class="form-control" />
             <select id="option" class="form-select" aria-label="Example select with button addon">
@@ -186,8 +186,8 @@
 
     <!-- Footer Section Starts -->
     <footer>
-        <h5>
-            the exploration <span class="bold">never</span> ends
+        <h5 class='neonText'>
+            the exploration never ends
         </h5>
     </footer>
     <!-- Footer Section Ends -->

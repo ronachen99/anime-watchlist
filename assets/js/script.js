@@ -254,3 +254,11 @@ searchResultsContainer.addEventListener("click", addItemsToList)
 // Event Listener: that calls for quotes form handler on click
 //------------------------------------------------------------------------------------------------------------//
 quotesFormEl.addEventListener('submit', quotesFormHandler);
+//------------------------------------------------------------------------------------------------------------//
+// Animate.css Properties
+//------------------------------------------------------------------------------------------------------------//
+const hero = document.querySelector('.hero');
+hero.style.setProperty('--animate-duration', '5s');
+
+const nav = document.querySelector('navbar-menu');
+nav.style.setProperty('--animate-duration', '10s');
