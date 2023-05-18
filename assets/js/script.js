@@ -29,7 +29,7 @@ var currentlyWatchingListDisplay = document.querySelector("#completed-list");
 
 function updateListDisplay(){
     getListsFromLocalStorage();
-    
+
 }
 
 
@@ -67,6 +67,7 @@ function setListType(value) {
 
 //search result constructor
 function searchResultConstructor(event) {
+    event.preventDefault();
     console.log(listType);
     //if search box isn't empty
     if (searchBox.value !== "") {
@@ -92,8 +93,13 @@ function getSearchResults(searchCriteria) {
             .then(function (data) {
                 //display data
                 console.log(data);
-                searchData = data;
-                displaySearchResults(data);
+                if(data.data.length !== 0){
+                    searchData = data;
+                    displaySearchResults(data);
+                }else{
+                    console.log("no search results");
+                }
+                
             });
     }
     else {
@@ -275,18 +281,11 @@ addToCompleted.addEventListener("click", function () {
 //------------------------------------------------------------------------------------------------------------//
 // Event Listener for search anime constructor
 //------------------------------------------------------------------------------------------------------------//
-searchButton.addEventListener("click", function (event) {
-    //prevent the page from refreshing
-    event.preventDefault();
-    searchResultConstructor(event);
-});
+searchButton.addEventListener("click", searchResultConstructor);
 //------------------------------------------------------------------------------------------------------------//
 // Event listener for add to list buttons
 //------------------------------------------------------------------------------------------------------------//
-searchResultsContainer.addEventListener("click", function (event) {
-    addItemsToList(event);
-})
-
+searchResultsContainer.addEventListener("click", addItemsToList)
 //------------------------------------------------------------------------------------------------------------//
 // Event Listener: that calls for quotes form handler on click
 //------------------------------------------------------------------------------------------------------------//
