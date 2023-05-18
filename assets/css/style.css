@@ -67,6 +67,7 @@ h5 {
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 2%;
+    color: whitesmoke;
 }
 
 /* Add an image background for the anime search modal */

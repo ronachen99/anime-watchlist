@@ -1,33 +1,31 @@
 //------------------------------------------------------------------------------------------------------------//
 // Anime search section
 //------------------------------------------------------------------------------------------------------------//
-//variable to store search data
+
+// Variable to store search data
 var searchData;
 
-//list items
+// List Arrays
 var currentlyWatching = [];
 var planToWatch = [];
 var completed = [];
 
-//search box elements
+// Search Box Elements
 var searchBox = document.querySelector("#searchBox");
 var searchButton = document.querySelector("#searchButton");
 
-//Wherever we want the anime tiles to appear
+// Anime Tiles Container (from search results)
 var searchResultsContainer = document.querySelector("#searchResults");
 
-//add to currently watching button
+// Add to currently watching button
 var addToCurrentlyWatching = document.querySelector(".add-to-currently-watching");
 var addToPlanToWatch = document.querySelector(".add-to-plan-to-watch");
 var addToCompleted = document.querySelector(".add-to-completed");
 
-//list type selector
+// List Type Selector
 var listType = "";
-//url variables
-var searchCriteria = "";
-var jikanUrl;
 
-//list type functions
+// List Type Functions
 function getListType() {
     return listType;
 }
@@ -35,48 +33,39 @@ function setListType(value) {
     listType = value;
 }
 
-//search result constructor
+// Search Result Constructor
 function searchResultConstructor(event) {
-    //if search box isn't empty
-    if (searchBox.value !== "") {
-        searchCriteria = searchBox.value.trim();
-        jikanUrl = "https://api.jikan.moe/v4/anime?q=" + searchCriteria + "&sfw";
-        console.log("searching " + jikanUrl);
-        getSearchResults(searchCriteria);
-    }
-    //if search results are empty
-    else {
-
-    }
+    event.preventDefault();
+   var searchCriteria = searchBox.value.trim();
+    getSearchResults(searchCriteria);
+    searchBox.value = '';
 }
 
-//event listener for search field
+// Fetch Anime Data
 function getSearchResults(searchCriteria) {
-    if (searchCriteria) {
-        //search
-        fetch(jikanUrl)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                //display data
+   var jikanUrl = "https://api.jikan.moe/v4/anime?q=" + searchCriteria + "&sfw";
+   console.log("searching " + jikanUrl);
+    fetch(jikanUrl)
+        .then(function (response) {
+             response.json().then(function (data) {
                 console.log(data);
+            if (data.data.length === 0) {
+                return searchResultsContainer.textContent = '(._.) sorry...nothing was found...';
+                }  
                 searchData = data;
                 displaySearchResults(data);
             });
-    }
-    else {
-        //display error
-    }
+    })
 }
 
+// Empty Search Results
 function clearSearchResults() {
     while (searchResultsContainer.firstChild) {
         searchResultsContainer.removeChild(searchResultsContainer.firstChild);
     }
 }
 
-//need to get the list
+// Create Anime Search Tiles
 function displaySearchResults(data) {
     //clear existing search results
     clearSearchResults();
@@ -114,6 +103,7 @@ function displaySearchResults(data) {
     }
 }
 
+// Add selecteed items to list
 function addItemsToList(event) {
     //check if the button is clicked
     if (event.target.classList.contains("add-button")) {
@@ -136,8 +126,6 @@ function addItemsToList(event) {
         }
     }
 }
-
-
 
 
 //------------------------------------------------------------------------------------------------------------//
