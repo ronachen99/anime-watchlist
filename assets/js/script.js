@@ -4,28 +4,27 @@
 //update lists
 //updateListDisplay();
 //list items
-var currentlyWatching = [];
-var planToWatch = [];
-var completed = [];
+var currentlyWatching = JSON.parse(localStorage.getItem("currentlyWatching")) || [];
+var planToWatch = JSON.parse(localStorage.getItem("planToWatch")) || [];
+var completed = JSON.parse(localStorage.getItem("completedWatching")) || [];
+
 //functions
-//clear local storage for testing purposes
-//save list items to local storage
-function setLocalStorageLists() {
-    localStorage.setItem("currentlyWatching", currentlyWatching);
-    localStorage.setItem("planToWatch", planToWatch);
-    localStorage.setItem("completed", completed);
+//update lists from local storage
+function updateLocalStorageLists() {
+    var currentlyWatching = JSON.parse(localStorage.getItem("currentlyWatching")) || [];
+    var planToWatch = JSON.parse(localStorage.getItem("planToWatch")) || [];
+    var completed = JSON.parse(localStorage.getItem("completedWatching")) || [];
 }
 
-function getListsFromLocalStorage() {
-    if(localStorage.getItem("currentlyWatching") != null){
-        currentlyWatching = localStorage.getItem("currentlyWatching");
-    }
-    if(localStorage.getItem("planToWatch") != null){
-        planToWatch = localStorage.getItem("planToWatch");
-    }
-    if(localStorage.getItem("completed") != null){
-        completed = localStorage.getItem("completed");
-    }
+//save list items to local storage
+function setLocalStorageLists() {
+    localStorage.setItem("currentlyWatching", JSON.stringify(currentlyWatching));
+    localStorage.setItem("planToWatch", JSON.stringify(planToWatch));
+    localStorage.setItem("completed", JSON.stringify(completed));
+}
+
+function clearLocalStorage() {
+    localStorage.clear();
 }
 
 //------------------------------------------------------------------------------------------------------------//
@@ -34,64 +33,48 @@ function getListsFromLocalStorage() {
 //list sections
 var currentlyWatchingListDisplay = document.querySelector("#current-list");
 var planToWatchListDisplay = document.querySelector("#plan-list");
-var currentlyWatchingListDisplay = document.querySelector("#completed-list");
+var completedListDisplay = document.querySelector("#completed-list");
 
-//search for an anime by ID and return anime data
-function searchAnimeId(searchCriteria) {
-    var jikanUrl = "https://api.jikan.moe/v4/anime/" + searchCriteria;
-    console.log("searching " + jikanUrl);   
-    fetch(jikanUrl)
-        .then(function (response) {
-            response.json().then(function (data) {
-                if (data.length === 0) {
-                    return searchResultsContainer.textContent = '(._.) error...bad id i guess..';
-                } else {
-                    console.log(data);
-                    return (data);
-                }
-            });
-        })
-}
 
 //convert a list of id's into a list of object data
 function convertListsToObjectData(list) {
     //list to return
     var animeObjectList = [];
-    //call api for each id in list
-    if (list) {
-        for (x = 0; x < list.length; x++) {
-            console.log(list[x].data);
-            animeObjectList.push(searchAnimeId(list[x].data));
-        }
-        console.log(animeObjectList);
-        //return list
-        return animeObjectList;
-    }else{
+    console.log(list);
+    // //call api for each id in list
+    if (list.length === 0) {
         //should never be called
         console.log("empty list.");
+        //return list
+        return animeObjectList;
+    } else {
+        for (x = 0; x < list.length; x++) {
+
+            console.log((searchAnimeId(list[x])));
+        }
+        console.log(animeObjectList);
+        return animeObjectList;
     }
-
-
 }
 
 function updateListDisplay() {
-    //update lists from local storage
-    getListsFromLocalStorage();
     //convert lists to object data
-    // var currentlyWatchingListData = [];
-    // var planToWatchListData = [];
-    // var completedListData = [];
-    // if(currentlyWatching.length !== 0){
-    //     currentlyWatchingListData = convertListsToObjectData(currentlyWatching);
-    // }
-    // if(planToWatchListData.length !== 0){
-    //     planToWatchListData = convertListsToObjectData(currentlyWatching);
-    // }
-    // if(completedListData.length !== 0){
-    //     completedListData = convertListsToObjectData(currentlyWatching);
-    // }
+    var currentlyWatchingListData = [];
+    var planToWatchListData = [];
+    var completedListData = [];
+
+    if(currentlyWatching.length !== 0){
+        currentlyWatchingListData = convertListsToObjectData(currentlyWatching);
+    }
+    if(planToWatchListData.length !== 0){
+        planToWatchListData = convertListsToObjectData(currentlyWatching);
+    }
+    if(completedListData.length !== 0){
+        completedListData = convertListsToObjectData(currentlyWatching);
+    }
     
-    
+
+
     // for(x = 0; x < currentlyWatching.length; x++){
     //     currentlyWatchingListDisplay.innerHTML += '<div class="column is-one-fifth">' +
     // '<header class="card-header">' +
@@ -199,24 +182,27 @@ function addItemsToList(event) {
         var clickedData = searchData.data[tileIndex];
         //add the clicked data to the respective list
         //add the clickedData to the selected list if it's not already in ANY of the lists
-        if (!currentlyWatching.includes(clickedData.mal_id) && !planToWatch.includes(clickedData.mal_id) && !completed.includes(clickedData.mal_id)) {
+        if (!currentlyWatching.includes(clickedData) && !planToWatch.includes(clickedData) && !completed.includes(clickedData)) {
             switch (listType) {
                 case ("currentlyWatching"):
-                    currentlyWatching.push(clickedData.mal_id);
-                    console.log(currentlyWatching); 
+                    currentlyWatching.push(clickedData);
+                    setLocalStorageLists();
                     console.log("Updated local storage");
+                    updateListDisplay();
                     break;
                 case ("planToWatch"):
-                    planToWatch.push(clickedData.mal_id);
+                    planToWatch.push(clickedData);
                     //updateListDisplay();
                     break;
                 case ("completed"):
-                    setLocalStorageLists();
+                    //setLocalStorageLists();
                     //updateListDisplay();
                     break;
+                default:
+                    console.log("item already added to list");
             }
-            updateListDisplay();
-            setLocalStorageLists();
+            //updateListDisplay();
+            //setLocalStorageLists();
         }
     }
 }
@@ -326,5 +312,3 @@ quotesFormEl.addEventListener('submit', quotesFormHandler);
 const hero = document.querySelector('.hero');
 hero.style.setProperty('--animate-duration', '5s');
 
-const nav = document.querySelector('navbar-menu');
-nav.style.setProperty('--animate-duration', '10s');
