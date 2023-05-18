@@ -198,8 +198,35 @@ function addItemsToList(event) {
         }
     }
 }
+//------------------------------------------------------------------------------------------------------------//
+// Remove Anime: remove anime from the list
+//------------------------------------------------------------------------------------------------------------//
+function removeAnime(event) {
+    var removeButton = event.target;
+    var columnDiv = removeButton.closest('.column');
+    var malID = columnDiv.id;
 
+    // Determine the list type based on the parent container and create an updated array by filtering out the selected columnDiv
+    if (columnDiv.parentNode === currentlyWatchingListDisplay) {
+        currentlyWatching = currentlyWatching.filter(x => x.mal_id != malID)
+        localStorage.setItem("currentlyWatching", JSON.stringify(currentlyWatching));
+    } else if (columnDiv.parentNode === planToWatchListDisplay) {
+        planToWatch = planToWatch.filter(x => x.mal_id != malID)
+        localStorage.setItem("planToWatch", JSON.stringify(planToWatch));
+    } else if (columnDiv.parentNode === completedListDisplay) {
+        completed = completed.filter(x => x.mal_id != malID)
+        localStorage.setItem("completed", JSON.stringify(completed));
+    }
+    // Remove the columnDiv
+    columnDiv.remove();
+}
 
+// Update the event listener to target the remove button id
+document.addEventListener('click', function (event) {
+    if (event.target.id === 'remove-btn') {
+        removeAnime(event);
+    }
+});
 //------------------------------------------------------------------------------------------------------------//
 // Quote Search Section
 //------------------------------------------------------------------------------------------------------------//
