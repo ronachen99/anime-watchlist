@@ -1,7 +1,8 @@
 # Anime Watchlist
 
 ## Description
-The objective behind setting up this repository is to develop a website catering to anime enthusiasts, providing them with a platform where they can manage, store, and customize their anime watchlist.
+
+The purpose of developing this webpage is to offer users a convenient platform for accessing, monitoring, and searching for anime that they may want to add to their personal list. This project successfully accomplishes two primary objectives: tracking and managing anime, and searching for anime quotes.
 
 <br>
 
@@ -11,6 +12,7 @@ The objective behind setting up this repository is to develop a website catering
   - [Table of Contents](#table-of-contents)
   - [Demonstration](#demonstration)
   - [Deployed Webpage](#deployed-webpage)
+  - [Considerations](#considerations)
   - [Installation](#installation)
   - [Credits](#credits)
   - [License](#license)
@@ -26,6 +28,13 @@ Here is a short demonstration of the website:
 <br>
 
 ## Deployed Webpage
+
+<br>
+
+## Considerations
+
+- Allow users to create their own list
+- Allow users to drag around between lists
 
 <br>
 
