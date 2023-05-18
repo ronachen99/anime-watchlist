@@ -136,8 +136,10 @@
         </div>
         <hr>
         <!-- Currently Watching List Ends -->
-
         <!-- Plan to Watch List Starts -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button id="modal-button" type="button" class="btn btn-secondary btn-sm add-to-plan-to-watch" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop">+</button>
         <div id="plan-to-watch">
             <h2 class="custom-heading title is-3">Plan to Watch</h2>
             <!-- List -->
@@ -149,10 +151,13 @@
         <!-- Plan to Watch List Ends -->
 
         <!-- Completed List Starts -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button id="modal-button" type="button" class="btn btn-secondary btn-sm add-to-completed" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop">+</button>
         <div id="completed">
             <h2 class="custom-heading title is-3">Completed</h2>
             <!-- List -->
-            <div id="plan-list" class="columns is-flex-wrap-wrap">
+            <div id="completed-list" class="columns is-flex-wrap-wrap">
                 <!-- List goes in here -->
             </div>
         </div>
