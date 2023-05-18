@@ -1,24 +1,33 @@
 //------------------------------------------------------------------------------------------------------------//
 // Local storage section
 //------------------------------------------------------------------------------------------------------------//
+//update lists
+//updateListDisplay();
 //list items
 var currentlyWatching = [];
 var planToWatch = [];
 var completed = [];
 //functions
 //clear local storage for testing purposes
-localStorage.clear();
 //save list items to local storage
 function setLocalStorageLists() {
     localStorage.setItem("currentlyWatching", currentlyWatching);
     localStorage.setItem("planToWatch", planToWatch);
     localStorage.setItem("completed", completed);
 }
+
 function getListsFromLocalStorage() {
-    currentlyWatching = localStorage.getItem("currentlyWatching");
-    planToWatch = localStorage.getItem("planToWatch");
-    completed = localStorage.getItem("completed");
+    if(localStorage.getItem("currentlyWatching") != null){
+        currentlyWatching = localStorage.getItem("currentlyWatching");
+    }
+    if(localStorage.getItem("planToWatch") != null){
+        planToWatch = localStorage.getItem("planToWatch");
+    }
+    if(localStorage.getItem("completed") != null){
+        completed = localStorage.getItem("completed");
+    }
 }
+
 //------------------------------------------------------------------------------------------------------------//
 // Display list items from local storage
 //------------------------------------------------------------------------------------------------------------//
@@ -27,23 +36,86 @@ var currentlyWatchingListDisplay = document.querySelector("#current-list");
 var planToWatchListDisplay = document.querySelector("#plan-list");
 var currentlyWatchingListDisplay = document.querySelector("#completed-list");
 
-function updateListDisplay(){
-    getListsFromLocalStorage();
+//search for an anime by ID and return anime data
+function searchAnimeId(searchCriteria) {
+    var jikanUrl = "https://api.jikan.moe/v4/anime/" + searchCriteria;
+    console.log("searching " + jikanUrl);   
+    fetch(jikanUrl)
+        .then(function (response) {
+            response.json().then(function (data) {
+                if (data.length === 0) {
+                    return searchResultsContainer.textContent = '(._.) error...bad id i guess..';
+                } else {
+                    console.log(data);
+                    return (data);
+                }
+            });
+        })
+}
 
+//convert a list of id's into a list of object data
+function convertListsToObjectData(list) {
+    //list to return
+    var animeObjectList = [];
+    //call api for each id in list
+    if (list) {
+        for (x = 0; x < list.length; x++) {
+            console.log(list[x].data);
+            animeObjectList.push(searchAnimeId(list[x].data));
+        }
+        console.log(animeObjectList);
+        //return list
+        return animeObjectList;
+    }else{
+        //should never be called
+        console.log("empty list.");
+    }
+
+
+}
+
+function updateListDisplay() {
+    //update lists from local storage
+    getListsFromLocalStorage();
+    //convert lists to object data
+    // var currentlyWatchingListData = [];
+    // var planToWatchListData = [];
+    // var completedListData = [];
+    // if(currentlyWatching.length !== 0){
+    //     currentlyWatchingListData = convertListsToObjectData(currentlyWatching);
+    // }
+    // if(planToWatchListData.length !== 0){
+    //     planToWatchListData = convertListsToObjectData(currentlyWatching);
+    // }
+    // if(completedListData.length !== 0){
+    //     completedListData = convertListsToObjectData(currentlyWatching);
+    // }
+    
+    
+    // for(x = 0; x < currentlyWatching.length; x++){
+    //     currentlyWatchingListDisplay.innerHTML += '<div class="column is-one-fifth">' +
+    // '<header class="card-header">' +
+    // '    <button id="completed-btn" class="button is-success is-rounded">✓ </button>' +
+    // '    <button id="remove-btn" class="button is-danger is-rounded">✕</button>' +
+    // '</header>' +
+    // '<div class="card">' +
+    // '    <figure class="image is-4by3">' +
+    // '        <img src=${data} alt="Placeholder image">' +
+    // '    </figure>' +
+    // '    <div class="card-content">' +
+    // '        <h2>Example Title</h2>' +
+    // '    </div>' +
+    // '</div>' +
+    // '</div>';
 }
 
 
 //------------------------------------------------------------------------------------------------------------//
-// Anime search section
+// Anime search box section
 //------------------------------------------------------------------------------------------------------------//
 
 // Variable to store search data
 var searchData;
-
-// List Arrays
-var currentlyWatching = [];
-var planToWatch = [];
-var completed = [];
 
 // Search Box Elements
 var searchBox = document.querySelector("#searchBox");
@@ -71,26 +143,27 @@ function setListType(value) {
 // Search Result Constructor
 function searchResultConstructor(event) {
     event.preventDefault();
-   var searchCriteria = searchBox.value.trim();
+    var searchCriteria = searchBox.value.trim();
     getSearchResults(searchCriteria);
     searchBox.value = '';
 }
 
 // Fetch Anime Data
 function getSearchResults(searchCriteria) {
-   var jikanUrl = "https://api.jikan.moe/v4/anime?q=" + searchCriteria + "&sfw";
-   console.log("searching " + jikanUrl);
+    var jikanUrl = "https://api.jikan.moe/v4/anime?q=" + searchCriteria + "&sfw";
+    console.log("searching " + jikanUrl);
     fetch(jikanUrl)
         .then(function (response) {
-             response.json().then(function (data) {
+            response.json().then(function (data) {
                 console.log(data);
-            if (data.data.length === 0) {
-                return searchResultsContainer.textContent = '(._.) sorry...nothing was found...';
-                }  
-                searchData = data;
-                displaySearchResults(data);
+                if (data.data.length === 0) {
+                    return searchResultsContainer.textContent = '(._.) sorry...nothing was found...';
+                } else {
+                    searchData = data;
+                    displaySearchResults(data);
+                }
             });
-    })
+        })
 }
 
 // Empty Search Results
@@ -109,8 +182,7 @@ function displaySearchResults(data) {
         var tileLink = data.data[x].images.jpg.image_url;
         var animeTile = document.createElement("div");
         animeTile.setAttribute('id', 'anime-tiles');
-        animeTile.innerHTML=`<div class='image-container'><button class='add-button'>+</button><img src='${tileLink}' alt='animeImage'/></div>`
-        animeTile.classList = "";
+        animeTile.innerHTML = `<div class='image-container'><button class='add-button'>+</button><img src='${tileLink}' alt='animeImage'/></div>`
         searchResultsContainer.appendChild(animeTile);
     }
 }
@@ -131,26 +203,20 @@ function addItemsToList(event) {
             switch (listType) {
                 case ("currentlyWatching"):
                     currentlyWatching.push(clickedData.mal_id);
-                    console.log("Updated currentlyWatching array: ");
-                    console.log(currentlyWatching);
+                    console.log(currentlyWatching); 
                     console.log("Updated local storage");
-                    setLocalStorageLists();
                     break;
                 case ("planToWatch"):
                     planToWatch.push(clickedData.mal_id);
-                    console.log("Updated plantoWatch array: ");
-                    console.log(planToWatch);
-                    console.log("Updated local storage");
-                    setLocalStorageLists();
+                    //updateListDisplay();
                     break;
                 case ("completed"):
-                    completed.push(clickedData.mal_id);
-                    console.log("Updated completed array: ");
-                    console.log(completed);
-                    console.log("Updated local storage");
                     setLocalStorageLists();
+                    //updateListDisplay();
                     break;
             }
+            updateListDisplay();
+            setLocalStorageLists();
         }
     }
 }
@@ -236,11 +302,11 @@ addToCurrentlyWatching.addEventListener("click", function () {
 
 addToPlanToWatch.addEventListener("click", function () {
     setListType("planToWatch");
- });
+});
 
 addToCompleted.addEventListener("click", function () {
     setListType("completed");
- });
+});
 
 //------------------------------------------------------------------------------------------------------------//
 // Event Listener for search anime constructor
