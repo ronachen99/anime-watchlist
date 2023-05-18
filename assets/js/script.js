@@ -1,19 +1,40 @@
 //------------------------------------------------------------------------------------------------------------//
 // Local storage section
 //------------------------------------------------------------------------------------------------------------//
-//update lists
-//updateListDisplay();
 //list items
 var currentlyWatching = JSON.parse(localStorage.getItem("currentlyWatching")) || [];
 var planToWatch = JSON.parse(localStorage.getItem("planToWatch")) || [];
-var completed = JSON.parse(localStorage.getItem("completedWatching")) || [];
+var completed = JSON.parse(localStorage.getItem("completed")) || [];
 
+//list sections
+var currentlyWatchingListDisplay = document.querySelector("#current-list");
+var planToWatchListDisplay = document.querySelector("#plan-list");
+var completedListDisplay = document.querySelector("#completed-list");
+
+// List Type Selector
+var listType = "";
+
+//update lists
+updateListDisplay(currentlyWatching, currentlyWatchingListDisplay);
+updateListDisplay(planToWatch, planToWatchListDisplay);
+updateListDisplay(completed, completedListDisplay);
+
+// List Type Functions
+function getListType() {
+    return listType;
+}
+function setListType(value) {
+    listType = value;
+}
 //functions
 //update lists from local storage
 function updateLocalStorageLists() {
     var currentlyWatching = JSON.parse(localStorage.getItem("currentlyWatching")) || [];
+    console.log(currentlyWatching);
     var planToWatch = JSON.parse(localStorage.getItem("planToWatch")) || [];
-    var completed = JSON.parse(localStorage.getItem("completedWatching")) || [];
+    console.log(planToWatch);
+    var completed = JSON.parse(localStorage.getItem("completed")) || [];
+    console.log(completed);
 }
 
 //save list items to local storage
@@ -30,68 +51,39 @@ function clearLocalStorage() {
 //------------------------------------------------------------------------------------------------------------//
 // Display list items from local storage
 //------------------------------------------------------------------------------------------------------------//
-//list sections
-var currentlyWatchingListDisplay = document.querySelector("#current-list");
-var planToWatchListDisplay = document.querySelector("#plan-list");
-var completedListDisplay = document.querySelector("#completed-list");
 
 
-//convert a list of id's into a list of object data
-function convertListsToObjectData(list) {
-    //list to return
-    var animeObjectList = [];
-    console.log(list);
-    // //call api for each id in list
-    if (list.length === 0) {
-        //should never be called
-        console.log("empty list.");
-        //return list
-        return animeObjectList;
-    } else {
-        for (x = 0; x < list.length; x++) {
 
-            console.log((searchAnimeId(list[x])));
+function updateListDisplay(listType, listDisplay) {
+    //update local storage
+    updateLocalStorageLists();
+    //for each container
+    console.log("updating list display");
+    //update storage lists
+    if (listType) {
+        for (x = 0; x < listType.length; x++) {
+            console.log("displaying item: " + x);
+            console.log(listType[x]);
+            var malID = listType[x].mal_id;
+            var image = listType[x].images.jpg.image_url;
+            var title = listType[x].title;
+            listDisplay.innerHTML += `<div class="column is-one-fifth" id = '${malID}'>
+            <div class="card sunset glow">
+                <header class="card-header">
+                    <button id="completed-btn" class="button is-success is-rounded">✓ </button>
+                    <button id="remove-btn" class="button is-danger is-rounded">✕</button>
+                </header>
+                <figure class="image is-4by3">
+                    <img src= '${image}' alt="Placeholder image">
+               </figure>
+                <div class="card-content">
+                    <h2>'${title}'</h2>
+                </div>
+            </div>
+            </div>`;
         }
-        console.log(animeObjectList);
-        return animeObjectList;
     }
 }
-
-function updateListDisplay() {
-    //convert lists to object data
-    var currentlyWatchingListData = [];
-    var planToWatchListData = [];
-    var completedListData = [];
-
-    if (currentlyWatching.length !== 0) {
-        currentlyWatchingListData = convertListsToObjectData(currentlyWatching);
-    }
-    if (planToWatchListData.length !== 0) {
-        planToWatchListData = convertListsToObjectData(currentlyWatching);
-    }
-    if (completedListData.length !== 0) {
-        completedListData = convertListsToObjectData(currentlyWatching);
-    }
-
-
-
-    // for(x = 0; x < currentlyWatching.length; x++){
-    //     currentlyWatchingListDisplay.innerHTML += '<div class="column is-one-fifth">' +
-    // '<header class="card-header">' +
-    // '    <button id="completed-btn" class="button is-success is-rounded">✓ </button>' +
-    // '    <button id="remove-btn" class="button is-danger is-rounded">✕</button>' +
-    // '</header>' +
-    // '<div class="card">' +
-    // '    <figure class="image is-4by3">' +
-    // '        <img src=${data} alt="Placeholder image">' +
-    // '    </figure>' +
-    // '    <div class="card-content">' +
-    // '        <h2>Example Title</h2>' +
-    // '    </div>' +
-    // '</div>' +
-    // '</div>';
-}
-
 
 //------------------------------------------------------------------------------------------------------------//
 // Anime search box section
@@ -112,16 +104,7 @@ var addToCurrentlyWatching = document.querySelector(".add-to-currently-watching"
 var addToPlanToWatch = document.querySelector(".add-to-plan-to-watch");
 var addToCompleted = document.querySelector(".add-to-completed");
 
-// List Type Selector
-var listType = "";
 
-// List Type Functions
-function getListType() {
-    return listType;
-}
-function setListType(value) {
-    listType = value;
-}
 
 // Search Result Constructor
 function searchResultConstructor(event) {
@@ -182,27 +165,36 @@ function addItemsToList(event) {
         var clickedData = searchData.data[tileIndex];
         //add the clicked data to the respective list
         //add the clickedData to the selected list if it's not already in ANY of the lists
+        // console.log(clickedData);
+        // console.log(currentlyWatching);
         if (!currentlyWatching.includes(clickedData) && !planToWatch.includes(clickedData) && !completed.includes(clickedData)) {
             switch (listType) {
                 case ("currentlyWatching"):
                     currentlyWatching.push(clickedData);
                     setLocalStorageLists();
                     console.log("Updated local storage");
-                    updateListDisplay();
+                    currentlyWatchingListDisplay.innerHTML = "";
+                    updateListDisplay(currentlyWatching, currentlyWatchingListDisplay);
                     break;
                 case ("planToWatch"):
                     planToWatch.push(clickedData);
-                    //updateListDisplay();
+                    setLocalStorageLists();
+                    console.log("Updated local storage");
+                    planToWatchListDisplay.innerHTML = "";
+                    updateListDisplay(planToWatch, planToWatchListDisplay);
                     break;
                 case ("completed"):
-                    //setLocalStorageLists();
-                    //updateListDisplay();
+                    completed.push(clickedData);
+                    setLocalStorageLists();
+                    console.log("Updated local storage");
+                    completedListDisplay.innerHTML = "";
+                    updateListDisplay(completed, completedListDisplay);
                     break;
                 default:
                     console.log("item already added to list");
             }
-            //updateListDisplay();
-            //setLocalStorageLists();
+            updateListDisplay();
+            setLocalStorageLists();
         }
     }
 }
@@ -311,4 +303,3 @@ quotesFormEl.addEventListener('submit', quotesFormHandler);
 //------------------------------------------------------------------------------------------------------------//
 const hero = document.querySelector('.hero');
 hero.style.setProperty('--animate-duration', '5s');
-
