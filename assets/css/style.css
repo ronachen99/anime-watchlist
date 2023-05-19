@@ -1,8 +1,9 @@
 /* Set root colors */
 :root {
-    --purple:#45388e;
-    --violet:#857eae;
+    --violet:#382f6f;
+    --purple:#857eae;
     --blue:#0f0e20;
+    --orange:#e6710d;
 }
 
 /* Add font from Google Fonts */
@@ -18,12 +19,12 @@ body {
 
 /* Make breaks more visible */
 hr {
-    color:white;
+    color:var(--orange);
 }
 
 /* Add glowing effect on hover */
 .glow:hover {
-    box-shadow: var(--violet) 0 0 20px;
+    box-shadow: var(--purple) 0 0 20px;
 }
 
 /* Change heading color */
@@ -40,6 +41,17 @@ hr {
 h5 {
     padding: 1%;
     font-size: 20px;
+}
+
+/* Card background */
+.sunset {
+    background: linear-gradient(to left, #c04848, #2c186d);
+    border: none;
+}
+
+/* Card content */
+.card-content {
+    color: var(--purple);
 }
 
 /* Add neon text effect */
