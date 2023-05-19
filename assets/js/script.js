@@ -19,18 +19,24 @@ function loadStorage() {
 // Update List Display: list items from local storage
 //------------------------------------------------------------------------------------------------------------//
 function updateListDisplay(list, listDisplay) {
+    var addButton = '';
+    if (listDisplay.id == "current-list") {
+        addButton = '<button id="completed-btn" class="button is-success is-rounded">✓</button>'
+    } else {
+        addButton;
+    }
     if (list) {
         listDisplay.innerHTML = ""
         for (x = 0; x < list.length; x++) {
             var malID = list[x].mal_id;
             var image = list[x].images.jpg.image_url;
             var title = list[x].title;
-            listDisplay.innerHTML += 
+            listDisplay.innerHTML +=
             `<div class="column is-one-fifth" id = '${malID}'>
                 <div class="card sunset glow">
                     <header class="card-header">
-                        <button id="completed-btn" class="button is-success is-rounded">✓ </button>
                         <button id="remove-btn" class="button is-danger is-rounded">✕</button>
+                        '${addButton}'
                     </header>
                     <figure class="image is-4by3">
                         <img src= '${image}' alt="Placeholder image">
@@ -78,7 +84,7 @@ function searchResultConstructor(event) {
 // Get Search Results: fetch from Jikan API for anime data
 //------------------------------------------------------------------------------------------------------------//
 function getSearchResults(searchCriteria) {
-    var jikanUrl = "https://api.jikan.moe/v4/anime?q=" + searchCriteria + "&sfw";
+    var jikanUrl = "https://api.jikan.moe/v4/anime?q=" + searchCriteria + "&sfw&type=tv&order_by=popularity";
     fetch(jikanUrl)
         .then(function (response) {
             response.json().then(function (data) {
