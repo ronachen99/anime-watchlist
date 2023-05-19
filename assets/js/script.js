@@ -84,7 +84,7 @@ function searchResultConstructor(event) {
 // Get Search Results: fetch from Jikan API for anime data
 //------------------------------------------------------------------------------------------------------------//
 function getSearchResults(searchCriteria) {
-    var jikanUrl = "https://api.jikan.moe/v4/anime?q=" + searchCriteria + "&sfw";
+    var jikanUrl = "https://api.jikan.moe/v4/anime?q=" + searchCriteria + "&sfw&type=tv&order_by=popularity";
     fetch(jikanUrl)
         .then(function (response) {
             response.json().then(function (data) {
