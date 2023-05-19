@@ -12,7 +12,7 @@ The purpose of developing this webpage is to offer users a convenient platform f
   - [Table of Contents](#table-of-contents)
   - [Demonstration](#demonstration)
   - [Deployed Webpage](#deployed-webpage)
-  - [Considerations](#considerations)
+  - [Additional Features to Consider](#additional-features-to-consider)
   - [Installation](#installation)
   - [Credits](#credits)
   - [License](#license)
@@ -31,7 +31,9 @@ Here is a short demonstration of the website:
 
 <br>
 
-## Considerations
+## Additional Features to Consider
+
+Here are a list of addtional features to consider or implement in the future:
 
 - Allow users to create their own list
 - Allow users to drag around between lists
