@@ -2,7 +2,7 @@
 
 ## Description
 
-The purpose of developing this webpage is to offer users a convenient platform for accessing, monitoring, and searching for anime that they may want to add to their personal list. This project successfully accomplishes two primary objectives: tracking and managing anime, and searching for anime quotes.
+The purpose of developing this webpage is to offer users a convenient platform for accessing, monitoring, and searching for anime that they may want to add to their personal list. This project successfully accomplishes two primary objectives: tracking and managing anime, and searching for anime quotes. The webpage is also responsive, allowing users to access their lists with different devices.
 
 <br>
 
