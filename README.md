@@ -35,14 +35,16 @@ https://ronachen99.github.io/anime-watchlist/
 
 ## Additional Features to Consider
 
-Here are some addtional features to consider or implement in the future. These features should enhance the user experience and provide more functionality for organizing and managing anime lists.
+Here are some additional features to consider or implement in the future. These features should enhance the user experience and provide more functionality for organizing and managing anime lists.
 
 1. Allow users to create their own lists: Implement a feature that enables users to create custom lists for organizing their anime.
 2. Add titles and descriptive details to anime items in search results: Enhance the search result display by including titles and descriptive details for each anime item.
 3. Implement a more flexible method to move anime items between lists: Enable users to easily move anime items from one list to another using a drag-and-drop functionality.
 4. Add anime description boxes on hover: Display anime description boxes when users hover over the anime tiles in order to provide more information about each anime.
 5. Import and export list data: Allow users to import and export their list data to files for easy backup or sharing with others.
-6. Add quick buttons for adding anime to lists: Include separate buttons on anime search results that allow users to quickly add items to specific lists, such as "plan to watch," "completed," or "currently watching."
+6. Add quick buttons for adding anime to lists: Include separate buttons on anime search results that allow users to quickly add items to specific lists, such as "plan to watch," "completed," or "currently watching.".
+7. Implement horizontal scrolls for each list: Allow users to scroll horizontally within each list, providing a more intuitive and efficient way to navigate through a large number of items in a single list.
+8. Make the anime tiles in the list smaller in size: Optimize the use of screen space and allow users to view more anime items at a glance without the need for excessive scrolling.
   
 <br>
 
