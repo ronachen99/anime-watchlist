@@ -20,10 +20,10 @@ function loadStorage() {
 //------------------------------------------------------------------------------------------------------------//
 function updateListDisplay(list, listDisplay) {
     var addButton = '';
-    if(listDisplay.id == "current-list"){
-        addButton = '<button id="completed-btn" class="button is-success is-rounded">✓ </button>'
-    }else{
-        addButton = '';
+    if (listDisplay.id == "current-list") {
+        addButton = '<button id="completed-btn" class="button is-success is-rounded">✓</button>'
+    } else {
+        addButton;
     }
     if (list) {
         listDisplay.innerHTML = ""
@@ -31,12 +31,12 @@ function updateListDisplay(list, listDisplay) {
             var malID = list[x].mal_id;
             var image = list[x].images.jpg.image_url;
             var title = list[x].title;
-            listDisplay.innerHTML += 
+            listDisplay.innerHTML +=
             `<div class="column is-one-fifth" id = '${malID}'>
                 <div class="card sunset glow">
                     <header class="card-header">
-                        '${addButton}'
                         <button id="remove-btn" class="button is-danger is-rounded">✕</button>
+                        '${addButton}'
                     </header>
                     <figure class="image is-4by3">
                         <img src= '${image}' alt="Placeholder image">

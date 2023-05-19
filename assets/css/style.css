@@ -176,19 +176,34 @@ footer {
 #remove-btn {
     padding: 7px 13px;
     position: relative;
+    margin-right: 5%;
 }
 
 /* Hides the header of the anime cards */
-.card-header {
-    background-color: inherit;
-    box-shadow: none;
-    border-bottom: none;
-    display: flex;
-    justify-content: space-between;
-    opacity: 0%;
+.card-header {   
+    opacity: 20%;
 }
 
 /* Shows the header of the anime cards along with the buttons */
 .card-header:hover {
     opacity: 100%;
+}
+
+@media only screen and (max-width: 1400px)  {
+    .card-header {
+        opacity: 50%;
+    }
+}
+
+@media only screen and (max-width: 768px)  {
+    #modal-button {
+        padding: 5px 18px;
+        border-radius: 0%;
+    }
+    #anime-tiles {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+    }
 }
