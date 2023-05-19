@@ -38,7 +38,7 @@ function updateListDisplay(list, listDisplay) {
                         <button id="remove-btn" class="button is-danger is-rounded">✕</button>
                         '${addButton}'
                     </header>
-                    <figure class="image is-4by3">
+                    <figure class="image is-3by4">
                         <img src= '${image}' alt="Placeholder image">
                     </figure>
                     <div class="card-content">
