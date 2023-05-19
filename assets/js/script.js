@@ -19,6 +19,12 @@ function loadStorage() {
 // Update List Display: list items from local storage
 //------------------------------------------------------------------------------------------------------------//
 function updateListDisplay(list, listDisplay) {
+    var addButton = '';
+    if(listDisplay.id == "current-list"){
+        addButton = '<button id="completed-btn" class="button is-success is-rounded">✓ </button>'
+    }else{
+        addButton = '';
+    }
     if (list) {
         listDisplay.innerHTML = ""
         for (x = 0; x < list.length; x++) {
@@ -29,7 +35,7 @@ function updateListDisplay(list, listDisplay) {
             `<div class="column is-one-fifth" id = '${malID}'>
                 <div class="card sunset glow">
                     <header class="card-header">
-                        <button id="completed-btn" class="button is-success is-rounded">✓ </button>
+                        '${addButton}'
                         <button id="remove-btn" class="button is-danger is-rounded">✕</button>
                     </header>
                     <figure class="image is-4by3">
