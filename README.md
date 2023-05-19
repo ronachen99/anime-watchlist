@@ -41,7 +41,7 @@ Here are some addtional features to consider or implement in the future. These f
 2. Add titles and descriptive details to anime items in search results: Enhance the search result display by including titles and descriptive details for each anime item.
 3. Implement a more flexible method to move anime items between lists: Enable users to easily move anime items from one list to another using a drag-and-drop functionality.
 4. Add anime description boxes on hover: Display anime description boxes when users hover over the anime tiles in order to provide more information about each anime.
-5. Import and export list data: Allow users to import and export their list data using text files for easy backup or sharing with others.
+5. Import and export list data: Allow users to import and export their list data to files for easy backup or sharing with others.
 6. Add quick buttons for adding anime to lists: Include separate buttons on anime search results that allow users to quickly add items to specific lists, such as "plan to watch," "completed," or "currently watching."
   
 <br>
